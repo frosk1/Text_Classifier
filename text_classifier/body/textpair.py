@@ -1,5 +1,7 @@
 __author__ = 'jan'
 
+
+
 '''
 Class Textpair :
 
@@ -17,5 +19,6 @@ class TextPair(object):
     def __str__(self):
         return "Textpair "+self.name+"   Target "+str(self.target)+"\n"+\
                "ID: "+str(self.text1.id) + " Text: " + self.text1.text+"\n"+\
-               "ID: "+str(self.text2.id) + " Text: " + self.text2.text
-
+               "Atrtibute:   "+str(self.text1.features)+"\n"+\
+               "ID: "+str(self.text2.id) + " Text: " + self.text2.text+"\n"+\
+               "Atrtibute:   "+str(self.text2.features)
