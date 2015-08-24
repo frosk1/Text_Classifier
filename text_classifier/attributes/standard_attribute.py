@@ -3,10 +3,11 @@ __author__ = 'jan'
 Test Class :
 
 '''
-from text_classifier.attributes.attribute import attribute
+from text_classifier.attributes.attribute import Attribute
 from random import randint
 
-class StandardAttribute(attribute):
+
+class StandardAttribute(Attribute):
 
     def __init__(self):
         self._name = "standard_attribute"

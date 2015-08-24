@@ -7,7 +7,7 @@ abstract Class Atrtibute :
 
 '''
 
-class attribute(object):
+class Attribute(object):
     __metaclass__ = abc.ABCMeta
 
 

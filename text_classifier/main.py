@@ -25,18 +25,19 @@ if __name__ == '__main__':
     #print data1.real_data_size
     #print data1
     data1.attach_feature("standard_attribute")
+    #data1.attach_feature("bag_of_words")
     #for i in data1.real_data.values():
-        #print i
+     #   print i
 
     #print data1.real_data
     model1 = Model(data1)
     model1.set_classifier("svm")
     model1.fill_feature_target()
-    print model1.feature_samples
+    #print model1.feature_samples
     print model1.targets
-    model1.train(50)
-    model1.predict(model1.feature_samples[-1])
-    model1.clf.fit(model1.feature_samples[:8],model1.targets[:8])
-    print model1.clf.predict(model1.feature_samples[-1])
+    #model1.train(80)
+    #model1.predict(model1.feature_samples[-2])
+    #model1.clf.fit(model1.feature_samples[:8],model1.targets[:8])
+    #print model1.clf.predict(model1.feature_samples[-1])
 
     print model1.evaluate()

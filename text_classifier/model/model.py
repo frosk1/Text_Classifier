@@ -25,15 +25,23 @@ class Model(object):
 
         :return:
         """
+        feauter_is_list = False
         sample_list = []
         target_list = []
         for textpair in self.data.real_data.values():
             f_list =[]
             target_list.append(textpair.target)
             for feature_name in textpair.text1.features.keys():
-                f_list.append(textpair.text1.features[feature_name])
-                f_list.append(textpair.text2.features[feature_name])
-            sample_list.append(f_list)
+                if isinstance(textpair.text1.features[feature_name], list):
+                    feauter_is_list = True
+                    sample_list.append(textpair.text1.features[feature_name]+textpair.text2.features[feature_name])
+                else:
+                    f_list.append(textpair.text1.features[feature_name])
+                    f_list.append(textpair.text2.features[feature_name])
+
+            if not feauter_is_list:
+                sample_list.append(f_list)
+        print "#####"+str(len(sample_list))
         self.feature_samples = np.array(sample_list)
         self.targets = np.array(target_list)
 
@@ -76,9 +84,11 @@ class Model(object):
         for train, test in kf:
             x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], self.targets[train], self.targets[test]
             self.clf.fit(x_train, y_train)
-            predict_list.append(self.clf.predict(x_test))
-            true_list.append(y_test)
-        return accuracy_score(predict_list,true_list)
+            predict_list.append(self.clf.predict(x_test)[0])
+            true_list.append(y_test[0])
+        print "True Targets : \n%s "  %true_list
+        print "Model Targets : \n%s"  %predict_list
+        return accuracy_score(predict_list, true_list)
 
 
 

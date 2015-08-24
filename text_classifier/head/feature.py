@@ -1,7 +1,6 @@
 from __builtin__ import staticmethod
-from text_classifier.attributes.attribute import attribute
-import abc
 from text_classifier.attributes.standard_attribute import StandardAttribute
+from text_classifier.attributes.bag_of_words import BagOfWords
 
 __author__ = 'jan'
 
@@ -13,14 +12,19 @@ Interface for communication between data and attributes
 
 '''
 
+
 class Feature(object):
-    __metaclass__ = abc.ABCMeta
 
     @staticmethod
     def init_attribute(attribute_name):
         if attribute_name == "standard_attribute":
             attribute = StandardAttribute()
             return attribute
+        elif attribute_name == "bag_of_words":
+            attribute = BagOfWords()
+            return attribute
+        else:
+            print "Feature does not exist."
 
     @staticmethod
     def add_attribute(attribute_name, data):
@@ -31,5 +35,5 @@ class Feature(object):
 
     @staticmethod
     def add_attribute_list(attribute_list, data):
-        # Todo Implment call from list. <>
+        # Todo Implement call from list. <>
         pass
