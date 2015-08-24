@@ -1,8 +1,10 @@
 from __builtin__ import staticmethod
+from text_classifier.attributes.attribute import attribute
+import abc
+from text_classifier.attributes.standard_attribute import StandardAttribute
 
 __author__ = 'jan'
 
-from text_classifier.attributes.standard_attribute import StandardAttribute
 
 '''
 Class Feature :
@@ -12,10 +14,7 @@ Interface for communication between data and attributes
 '''
 
 class Feature(object):
-
-    def __init__(self, anno_data, attribute_list=None):
-        self.anno_data = anno_data
-        self.attribute_list = attribute_list
+    __metaclass__ = abc.ABCMeta
 
     @staticmethod
     def init_attribute(attribute_name):
@@ -23,8 +22,14 @@ class Feature(object):
             attribute = StandardAttribute()
             return attribute
 
-    def add_attribute(self, attribute_name):
+    @staticmethod
+    def add_attribute(attribute_name, data):
         attribute = Feature.init_attribute(attribute_name)
-        attribute._data = self.anno_data
+        attribute._data = data
         attribute.compute()
-        self.anno_data = attribute._data
+        return attribute._data
+
+    @staticmethod
+    def add_attribute_list(attribute_list, data):
+        # Todo Implment call from list. <>
+        pass

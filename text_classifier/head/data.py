@@ -24,6 +24,11 @@ class Data(object):
                "\n"+"Annotierte Textpaare: " + str(self.real_data_size)
 
     def add_anno(self, anno_file):
+        """
+
+        :param anno_file:
+        :return:
+        """
         with open(anno_file, "r") as f:
             input = f.readlines()
             for line in input:
@@ -36,12 +41,15 @@ class Data(object):
         self.real_data_size = len(self.real_data)
 
     def attach_feature(self, feature_name):
+        """
+
+        :param feature_name:
+        :return:
+        """
         if self.real_data_size == 0:
             print "No Annotation set. Please add_anno first."
         else:
-            feature = Feature(self.real_data)
-            feature.add_attribute(feature_name)
-            self.real_data = feature.anno_data
+            self.real_data = Feature.add_attribute(feature_name, self.real_data)
 
     def attach_feature_list(self, feature_list):
         # Todo feature_list in feature class <>
