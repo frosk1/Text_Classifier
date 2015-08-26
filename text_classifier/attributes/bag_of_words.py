@@ -11,6 +11,7 @@ class BagOfWords(Attribute):
     def __init__(self):
         self._name = "bag_of_words"
         self._data = None
+        self.corpus = None
         self.model = {}
 
     @property
@@ -51,7 +52,7 @@ class BagOfWords(Attribute):
         for i in data.values():
             for x in i.text1.tokenlist:
                 if re.match("\w+",x):
-                    model[x] = 0
+                    model[x.lower()] = 0
             for y in i.text2.tokenlist:
                 if re.match("\w+",y):
-                    model[y] = 0
+                    model[y.lower()] = 0

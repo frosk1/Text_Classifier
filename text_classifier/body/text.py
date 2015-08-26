@@ -19,6 +19,8 @@ class Text(object):
         self.id = text_id
         self.tokenlist = wordpunct_tokenize(self.text.decode("utf8"))
         self.features = {}
+        self.feature_vector = []
+        self.__feature_vector_init = False
 
     def __str__(self):
         return "ID: "+str(self.id) + " Text: " + self.text
@@ -29,12 +31,14 @@ class Text(object):
         else:
             return self.tokenlist
 
-    def get_feature(self, feature_name):
-        try:
-            return self.features[feature_name]
-        except KeyError:
-            print "feature "+feature_name+" does not exist"
-
-    def set_feature(self, feature_name, feature_value):
-        self.features[feature_name] = feature_value
-
+    def vectorize(self):
+        if not self.__feature_vector_init:
+            if len(self.features) == 0:
+                print "Please attach features first. Need to call data.py for that."
+            else:
+                for value in self.features.values():
+                    if isinstance(value, list):
+                        self.feature_vector = self.feature_vector + value
+                    else:
+                        self.feature_vector.append(value)
+                self.__feature_vector_init = True

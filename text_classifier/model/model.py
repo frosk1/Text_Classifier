@@ -12,9 +12,7 @@ Class Model :
 
 class Model(object):
 
-
     def __init__(self, data):
-
         self.clf = None
         self.data = data
         self.feature_samples = None
@@ -25,23 +23,15 @@ class Model(object):
 
         :return:
         """
-        feauter_is_list = False
+
         sample_list = []
         target_list = []
-        for textpair in self.data.real_data.values():
-            f_list =[]
-            target_list.append(textpair.target)
-            for feature_name in textpair.text1.features.keys():
-                if isinstance(textpair.text1.features[feature_name], list):
-                    feauter_is_list = True
-                    sample_list.append(textpair.text1.features[feature_name]+textpair.text2.features[feature_name])
-                else:
-                    f_list.append(textpair.text1.features[feature_name])
-                    f_list.append(textpair.text2.features[feature_name])
 
-            if not feauter_is_list:
-                sample_list.append(f_list)
-        print "#####"+str(len(sample_list))
+        for textpair in self.data.real_data.values():
+            textpair.vectorize()
+            target_list.append(textpair.target)
+            sample_list.append(textpair.feature_vector)
+
         self.feature_samples = np.array(sample_list)
         self.targets = np.array(target_list)
 
@@ -52,12 +42,12 @@ class Model(object):
         :return:
         """
         if classifier_name == "svm":
-            self.clf = svm.SVC(gamma=0.001, C=100)
+            self.clf = svm.SVC(kernel='linear')
 
     def train(self, fraction):
         """
 
-        :param fraction:
+        :param fraction:0
         :return:
         """
         if self.clf is None and self.feature_samples is None:
@@ -77,19 +67,19 @@ class Model(object):
         else:
             print self.clf.predict(sample)
 
-    def evaluate(self):
-        kf = KFold(len(self.feature_samples), n_folds=10)
+    def evaluate(self, folds):
+        kf = KFold(len(self.feature_samples), n_folds=folds)
         predict_list = []
         true_list = []
         for train, test in kf:
-            x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], self.targets[train], self.targets[test]
+            x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], \
+                                               self.targets[train], self.targets[test]
             self.clf.fit(x_train, y_train)
             predict_list.append(self.clf.predict(x_test)[0])
             true_list.append(y_test[0])
         print "True Targets : \n%s "  %true_list
         print "Model Targets : \n%s"  %predict_list
         return accuracy_score(predict_list, true_list)
-
 
 
 
