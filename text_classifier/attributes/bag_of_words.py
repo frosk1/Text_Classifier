@@ -12,6 +12,7 @@ class BagOfWords(Attribute):
         self._name = "bag_of_words"
         self._data = None
         self.corpus = None
+        self.text_set = set()
         self.model = {}
 
     @property
@@ -31,28 +32,29 @@ class BagOfWords(Attribute):
         self._data = new_value
 
     def compute(self):
-        BagOfWords.build_model(self.data,self.model)
-        for i in self._data.values():
+        self.build_model()
+
+        for textpair in self._data.values():
 
             temp_model = dict(self.model)
-            for x in i.text1.tokenlist:
-                if x.lower() in self.model.keys():
-                    temp_model[x.lower()] += 1
-            i.text1.features["bag_of_words"] = temp_model.values()
+            for token in textpair.text1.tokenlist:
+                if token.lower() in self.model.keys():
+                    temp_model[token.lower()] += 1
+            textpair.text1.features["bag_of_words"] = temp_model.values()
 
             temp_model = dict(self.model)
-            for y in i.text2.tokenlist:
-                if y.lower() in self.model.keys():
-                    temp_model[y.lower()] += 1
-            i.text2.features["bag_of_words"] = temp_model.values()
+            for token in textpair.text2.tokenlist:
+                if token.lower() in self.model.keys():
+                    temp_model[token.lower()] += 1
+            textpair.text2.features["bag_of_words"] = temp_model.values()
 
+    def build_model(self):
 
-    @staticmethod
-    def build_model(data, model):
-        for i in data.values():
-            for x in i.text1.tokenlist:
-                if re.match("\w+",x):
-                    model[x.lower()] = 0
-            for y in i.text2.tokenlist:
-                if re.match("\w+",y):
-                    model[y.lower()] = 0
+        for textpair in self._data.values():
+            self.text_set.add(textpair.text1)
+            self.text_set.add(textpair.text2)
+
+        for text in self.text_set:
+            for token in text.tokenlist:
+                if re.match("\w+", token):
+                    self.model[token.lower()] = 0
