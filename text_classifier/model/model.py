@@ -15,8 +15,8 @@ class Model(object):
     def __init__(self, data):
         self.clf = None
         self.data = data
-        self.feature_samples = None
-        self.targets = None
+        self.feature_samples, self.targets = self.fill_feature_target()
+
 
     def fill_feature_target(self):
         """
@@ -32,8 +32,8 @@ class Model(object):
             target_list.append(textpair.target)
             sample_list.append(textpair.feature_vector)
 
-        self.feature_samples = np.array(sample_list)
-        self.targets = np.array(target_list)
+        return np.array(sample_list), np.array(target_list)
+
 
     def set_classifier(self, classifier_name):
         """
@@ -68,17 +68,24 @@ class Model(object):
             print self.clf.predict(sample)
 
     def evaluate(self, folds):
+        """
+
+        :param folds:
+        :return:
+        """
         kf = KFold(len(self.feature_samples), n_folds=folds)
         predict_list = []
         true_list = []
+
         for train, test in kf:
             x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], \
                                                self.targets[train], self.targets[test]
             self.clf.fit(x_train, y_train)
             predict_list.append(self.clf.predict(x_test)[0])
             true_list.append(y_test[0])
-        print "True Targets : \n%s "  %true_list
-        print "Model Targets : \n%s"  %predict_list
+
+        print "True Targets : \n%s " % true_list
+        print "Model Targets : \n%s" % predict_list
         return accuracy_score(predict_list, true_list)
 
 

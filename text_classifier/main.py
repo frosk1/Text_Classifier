@@ -4,6 +4,7 @@ from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.data import Data
 from text_classifier.model.model import Model
+import math
 import os
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
@@ -13,7 +14,7 @@ import re
 
 if __name__ == '__main__':
     text_1 = Text(1, "Tim mag viele tolle sachen,)%$.")
-    text_2 = Text(2,"Hallo heute ist ein schoener tag")
+    text_2 = Text(2, "Hallo heute ist ein schoener tag")
     file = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell.txt"
     file2 = "/home/jan/annotation_test.txt"
     k1 = Korpus("Test")
@@ -29,7 +30,8 @@ if __name__ == '__main__':
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
-    data1.attach_feature("bag_of_words")
+    #data1.attach_feature("bag_of_words")
+    data1.attach_feature("tf_idf")
 
     #for i in data1.real_data.values():
     #    print i.text1.features
@@ -50,10 +52,9 @@ if __name__ == '__main__':
     #print data1.real_data
     model1 = Model(data1)
     model1.set_classifier("svm")
-    model1.fill_feature_target()
     X = model1.feature_samples
 
-
+    #print math.log10(0.2)
 
 
     #print model1.targets
@@ -63,6 +64,12 @@ if __name__ == '__main__':
     #print model1.clf.predict(model1.feature_samples[-1])
 
     print model1.evaluate(10)
+    #set2 = set()
+    #set1 = {"red","yellow"}
+    #set1.add("red")
+    #print set2.add("hallo")
+    #print set2
+
     #textpair = data1.real_data.values()[0]
     #text1 = textpair.text1
     #text = textpair.text1.text

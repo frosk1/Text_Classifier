@@ -35,6 +35,8 @@ class TextPair(object):
         else:
             print "Error in attribute class. Feature vectors has unequal size. textpair: " + self.name
 
+
+
     def vectorize(self):
         """
         method vectorizer :

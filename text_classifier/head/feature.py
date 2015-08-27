@@ -1,7 +1,7 @@
 from __builtin__ import staticmethod
 from text_classifier.attributes.standard_attribute import StandardAttribute
 from text_classifier.attributes.bag_of_words import BagOfWords
-
+from text_classifier.attributes.tf_idf import TfIdf
 __author__ = 'jan'
 
 
@@ -22,6 +22,9 @@ class Feature(object):
             return attribute
         elif attribute_name == "bag_of_words":
             attribute = BagOfWords()
+            return attribute
+        elif attribute_name == "tf_idf":
+            attribute = TfIdf()
             return attribute
         else:
             print "Feature does not exist."
