@@ -53,7 +53,7 @@ class Model(object):
         if self.clf is None and self.feature_samples is None:
             print "please set an classifier first and fill feature, target"
         else:
-            count = int(round((float(len(self.targets))/float(100))*float(fraction),0))
+            count = int(round((float(len(self.targets))/float(100))*float(fraction), 0))
             self.clf.fit(self.feature_samples[:count], self.targets[:count])
 
     def predict(self, sample):
@@ -83,14 +83,3 @@ class Model(object):
 
 
 
-
-if __name__ == '__main__':
-    X = np.array([[0., 0.], [1., 1.], [-1., -1.], [2., 2.]])
-    y = np.array([0, 1, 0, 1])
-    kf = KFold(4, n_folds=2)
-    for train, test in kf:
-        X_train, X_test, y_train, y_test = X[train], X[test], y[train], y[test]
-        print X_train#, X_test
-        #print y_train, y_test
-        print y_train
-        break

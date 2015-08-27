@@ -36,14 +36,14 @@ class BagOfWords(Attribute):
 
             temp_model = dict(self.model)
             for x in i.text1.tokenlist:
-                if x in self.model.keys():
-                    temp_model[x] += 1
+                if x.lower() in self.model.keys():
+                    temp_model[x.lower()] += 1
             i.text1.features["bag_of_words"] = temp_model.values()
 
             temp_model = dict(self.model)
             for y in i.text2.tokenlist:
-                if y in self.model.keys():
-                    temp_model[y] += 1
+                if y.lower() in self.model.keys():
+                    temp_model[y.lower()] += 1
             i.text2.features["bag_of_words"] = temp_model.values()
 
 

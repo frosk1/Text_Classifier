@@ -36,7 +36,7 @@ class Data(object):
                 textpair = TextPair(self.raw_data.content[int(pattern.group(1))],
                                     self.raw_data.content[int(pattern.group(2))],
                                     int(pattern.group(3)))
-                # print pattern.group(1) + "_" + pattern.group(2)+ " "+ pattern.group(3)
+
                 self.real_data[textpair.name] = textpair
         self.real_data_size = len(self.real_data)
 

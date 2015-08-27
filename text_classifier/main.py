@@ -62,7 +62,7 @@ if __name__ == '__main__':
     #model1.clf.fit(model1.feature_samples[:8],model1.targets[:8])
     #print model1.clf.predict(model1.feature_samples[-1])
 
-    #print model1.evaluate(10)
+    print model1.evaluate(10)
     #textpair = data1.real_data.values()[0]
     #text1 = textpair.text1
     #text = textpair.text1.text
