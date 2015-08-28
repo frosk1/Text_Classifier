@@ -32,6 +32,7 @@ class Text(object):
             return self.tokenlist
 
     def vectorize(self):
+
         if not self.__feature_vector_init:
             if len(self.features) == 0:
                 print "Please attach features first. Need to call data.py for that."

@@ -39,7 +39,7 @@ class Data(object):
 
                 self.real_data[textpair.name] = textpair
         self.real_data_size = len(self.real_data)
-
+        
     def attach_feature(self, feature_name):
         """
 
@@ -52,5 +52,13 @@ class Data(object):
             self.real_data = Feature.add_attribute(feature_name, self.real_data)
 
     def attach_feature_list(self, feature_list):
-        # Todo feature_list in feature class <>
-        pass
+        """
+
+        :param feature_list:
+        :return:
+        """
+        if self.real_data_size == 0:
+            print "No Annotation set. Please add_anno first."
+        else:
+            self.real_data = Feature.add_attribute_list(feature_list, self.real_data)
+

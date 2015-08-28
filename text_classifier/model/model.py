@@ -1,6 +1,9 @@
 __author__ = 'jan'
 import numpy as np
 from sklearn import svm
+from sklearn.naive_bayes import GaussianNB
+from sklearn import tree
+from sklearn.neighbors.nearest_centroid import NearestCentroid
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 
@@ -16,7 +19,6 @@ class Model(object):
         self.clf = None
         self.data = data
         self.feature_samples, self.targets = self.fill_feature_target()
-
 
     def fill_feature_target(self):
         """
@@ -34,7 +36,6 @@ class Model(object):
 
         return np.array(sample_list), np.array(target_list)
 
-
     def set_classifier(self, classifier_name):
         """
 
@@ -42,7 +43,13 @@ class Model(object):
         :return:
         """
         if classifier_name == "svm":
-            self.clf = svm.SVC(kernel='linear')
+            self.clf = svm.SVC()
+        elif classifier_name == "naive_bayes":
+            self.clf = GaussianNB()
+        elif classifier_name == "decision_tree":
+            self.clf = tree.DecisionTreeClassifier()
+        elif classifier_name == "nearest_centroid":
+            self.clf = NearestCentroid()
 
     def train(self, fraction):
         """
@@ -74,19 +81,26 @@ class Model(object):
         :return:
         """
         kf = KFold(len(self.feature_samples), n_folds=folds)
-        predict_list = []
-        true_list = []
+        accuracy_list = []
 
         for train, test in kf:
+
             x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], \
                                                self.targets[train], self.targets[test]
+
             self.clf.fit(x_train, y_train)
-            predict_list.append(self.clf.predict(x_test)[0])
-            true_list.append(y_test[0])
+            accuracy_list.append(accuracy_score(np.array(y_test), np.array(self.clf.predict(x_test))))
 
-        print "True Targets : \n%s " % true_list
-        print "Model Targets : \n%s" % predict_list
-        return accuracy_score(predict_list, true_list)
+        n = 0
+        sum_values = 0
 
+        for acc_value in accuracy_list:
+
+            sum_values = sum_values + acc_value
+            n += 1
+
+        acc_mean = (sum_values/n)
+
+        return accuracy_list, acc_mean
 
 

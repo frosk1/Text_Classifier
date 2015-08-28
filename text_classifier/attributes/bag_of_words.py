@@ -6,6 +6,7 @@ class BagOfWords :
 from text_classifier.attributes.attribute import Attribute
 import re
 
+
 class BagOfWords(Attribute):
 
     def __init__(self):
@@ -56,5 +57,5 @@ class BagOfWords(Attribute):
 
         for text in self.text_set:
             for token in text.tokenlist:
-                if re.match("\w+", token):
+                if re.match("\w+", token) and not self.model.has_key(token):
                     self.model[token.lower()] = 0

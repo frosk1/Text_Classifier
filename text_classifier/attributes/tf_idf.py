@@ -7,6 +7,7 @@ from text_classifier.attributes.attribute import Attribute
 import re
 import math
 
+
 class TfIdf(Attribute):
 
     def __init__(self):
@@ -56,7 +57,7 @@ class TfIdf(Attribute):
 
         for text in self.text_set:
             for token in text.tokenlist:
-                if re.match("\w+", token):
+                if re.match("\w+", token) and not self.model.has_key(token):
                     self.model[token.lower()] = 0
 
         self.number_of_texts = len(self.text_set)
@@ -100,11 +101,13 @@ class TfIdf(Attribute):
         else:
 
             tf_idf_model = dict(self.model)
+
             for word in self.model.keys():
                     if tf_model[word] == 0:
                         w_tf = 0
                     else:
                         w_tf = (1+math.log10(tf_model[word]))
+
                     idf = (math.log10(float(self.number_of_texts)/float(df_model[word])))
                     tf_idf_model[word] = (w_tf*idf)
             return tf_idf_model

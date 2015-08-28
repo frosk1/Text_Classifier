@@ -38,5 +38,9 @@ class Feature(object):
 
     @staticmethod
     def add_attribute_list(attribute_list, data):
-        # Todo Implement call from list. <>
-        pass
+
+        for att_name in attribute_list:
+            data = Feature.add_attribute(att_name, data)
+        return data
+
+
