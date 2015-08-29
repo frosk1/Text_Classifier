@@ -7,7 +7,7 @@ Class Textpair :
 
 
 '''
-
+from sklearn.metrics.pairwise import pairwise_distances
 
 class TextPair(object):
 
@@ -46,3 +46,10 @@ class TextPair(object):
         """
         for value1, value2 in TextPair.iter_feature_values(self):
             self.feature_vector.append(value1-value2)
+
+
+        ### Eculidean distance instead
+
+        # for i in pairwise_distances(self.text1.features.values(), self.text2.features.values(),metric='euclidean'):
+        #    for x in i:
+        #        self.feature_vector.append(x)
