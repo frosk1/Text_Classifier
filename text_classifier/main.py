@@ -4,6 +4,10 @@ from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.data import Data
 from text_classifier.model.model import Model
+from sklearn.datasets.twenty_newsgroups import fetch_20newsgroups
+from sklearn import metrics
+from sklearn.cross_validation import KFold
+from sklearn.cross_validation import PredefinedSplit
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import cross_validation
 import math
@@ -33,13 +37,13 @@ if __name__ == '__main__':
     #pair1 = TextPair(text_1, text_2, 1)
     #print pair1
     data1 = Data(k1)
-    data1.add_anno(file3)
+    data1.add_anno(file2)
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
     data1.attach_feature("bag_of_words")
-    feature_list = ["bag_of_words", "tf_idf"]
-    data1.attach_feature_list(feature_list)
+    #feature_list = ["bag_of_words", "tf_idf"]
+    #data1.attach_feature_list(feature_list)
     #data1.attach_feature("tf_idf")
 
     #for i in data1.real_data.values():
@@ -61,30 +65,40 @@ if __name__ == '__main__':
     #print data1.real_data
     model1 = Model(data1)
     model1.set_classifier("svm")
+
+
+
+
+
+    #np.mean(predicted == twenty_test.target)
     #model1.set_classifier("naive_bayes")
     #model1.set_classifier("decision_tree")
     #model1.set_classifier("nearest_centroid")
 
-    #X = model1.feature_samples
+    y = model1.evaluate_classification_report(80)
+    x = model1.evaluate_cross_validation(10)
 
-    #print math.log10(0.2)
-
-
-    #print model1.targets
-    #model1.train(80)
-    #print model1.targets[-5]
-    #x = np.array([0,1])
-    #print x
-    #print model1.predict(model1.feature_samples[x])
-    #model1.clf.fit(model1.feature_samples[:8],model1.targets[:8])
-    #print model1.clf.predict(model1.feature_samples[-1])
-
-
-    x = model1.evaluate(10)
-
+    print y
     print x[0]
     print x[1]
-
+    # kf = KFold(13, n_folds=4)
+    #
+    # for train, test in kf:
+    #     print "train",train," test ",test
+    #     print "len train", len(train), "test",len(test)
+    # X = np.array([[1, 2], [3, 4], [2, 7], [5, 6]])
+    # y = np.array([0, 0, 1, 1])
+    # ps = PredefinedSplit(test_fold=[-1,0,-1,1])
+    # print len(ps)
+    #
+    # print(ps)
+    #
+    # for train_index, test_index in ps:
+    #     print("TRAIN:", train_index, "TEST:", test_index)
+    #     X_train, X_test = X[train_index], X[test_index]
+    #     y_train, y_test = y[train_index], y[test_index]
+    #     #print("X_Train: ", X_train, "Y_train", y_train)
+    #     #print("X_Test: ", X_test, "Y_test", y_test)
     # X_train, X_test, y_train, y_test = cross_validation.train_test_split(
     # model1.feature_samples, model1.targets, test_size=0.4, random_state=0)
     #
