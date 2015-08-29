@@ -4,7 +4,11 @@ from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.data import Data
 from text_classifier.model.model import Model
+from collections import defaultdict
+import profile
+import pstats
 from sklearn.datasets.twenty_newsgroups import fetch_20newsgroups
+from sklearn.externals import joblib
 from sklearn import metrics
 from sklearn.cross_validation import KFold
 from sklearn.cross_validation import PredefinedSplit
@@ -18,8 +22,12 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import DictVectorizer
 from text_classifier.attributes.bag_of_words import BagOfWords#
 import re
+import pickle
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
+def main():
+
+
     text_1 = Text(1, "Tim mag viele tolle sachen,)%$.")
     text_2 = Text(2, "Hallo heute ist ein schoener tag")
     file = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell.txt"
@@ -37,7 +45,7 @@ if __name__ == '__main__':
     #pair1 = TextPair(text_1, text_2, 1)
     #print pair1
     data1 = Data(k1)
-    data1.add_anno(file2)
+    data1.add_anno(file3)
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
@@ -65,8 +73,8 @@ if __name__ == '__main__':
     #print data1.real_data
     model1 = Model(data1)
     model1.set_classifier("svm")
-
-
+    #model1.train(80)
+    #model1.predict(model1.feature_samples[-1])
 
 
 
@@ -75,10 +83,10 @@ if __name__ == '__main__':
     #model1.set_classifier("decision_tree")
     #model1.set_classifier("nearest_centroid")
 
-    y = model1.evaluate_classification_report(80)
+    # y = model1.evaluate_classification_report(80)
     x = model1.evaluate_cross_validation(10)
-
-    print y
+    #
+    # print y
     print x[0]
     print x[1]
     # kf = KFold(13, n_folds=4)
