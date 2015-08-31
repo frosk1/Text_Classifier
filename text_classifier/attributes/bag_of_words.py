@@ -12,7 +12,7 @@ class BagOfWords(Attribute):
     def __init__(self):
         self._name = "bag_of_words"
         self._data = None
-        self.corpus = None
+        # self.corpus = None
         self.text_set = set()
         self.model = {}
 

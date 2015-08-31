@@ -4,6 +4,10 @@ from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.data import Data
 from text_classifier.model.model import Model
+from sklearn import svm
+from sklearn import linear_model
+from sklearn.linear_model import SGDClassifier
+from sklearn.svm import NuSVC
 from collections import defaultdict
 import profile
 import pstats
@@ -23,6 +27,9 @@ from sklearn.feature_extraction import DictVectorizer
 from text_classifier.attributes.bag_of_words import BagOfWords#
 import re
 import pickle
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import svm, datasets
 
 #if __name__ == '__main__':
 def main():
@@ -32,7 +39,10 @@ def main():
     text_2 = Text(2, "Hallo heute ist ein schoener tag")
     file = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell.txt"
     file2 = "/home/jan/annotation_test.txt"
-    file3 = "/home/jan/annotation_test_jan.txt"
+    file3 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_regular_equal_Jan_Mel.txt"
+    file4 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Jan.txt"
+    file5 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Mel.txt"
+    file6 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_80.txt"
 
 
 
@@ -45,14 +55,14 @@ def main():
     #pair1 = TextPair(text_1, text_2, 1)
     #print pair1
     data1 = Data(k1)
-    data1.add_anno(file3)
+    data1.add_anno(file6)
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
-    data1.attach_feature("bag_of_words")
+    #data1.attach_feature("bag_of_words")
     #feature_list = ["bag_of_words", "tf_idf"]
     #data1.attach_feature_list(feature_list)
-    #data1.attach_feature("tf_idf")
+    data1.attach_feature("tf_idf")
 
     #for i in data1.real_data.values():
     #    print i.text1.features
@@ -72,23 +82,25 @@ def main():
 
     #print data1.real_data
     model1 = Model(data1)
-    model1.set_classifier("svm")
+    #model1.set_classifier("svm_poly")
+    #model1.set_classifier("svm_linear")
     #model1.train(80)
     #model1.predict(model1.feature_samples[-1])
-
+    #model1.clf = SGDClassifier()
 
 
     #np.mean(predicted == twenty_test.target)
     #model1.set_classifier("naive_bayes")
     #model1.set_classifier("decision_tree")
     #model1.set_classifier("nearest_centroid")
-
+    #model1.set_classifier("k_neighbors")
+    #model1.set_classifier("radius_neighbors")
     # y = model1.evaluate_classification_report(80)
-    x = model1.evaluate_cross_validation(10)
+    #x = model1.evaluate_cross_validation(10)
     #
     # print y
-    print x[0]
-    print x[1]
+    #print x[0]
+    #print x[1]
     # kf = KFold(13, n_folds=4)
     #
     # for train, test in kf:
@@ -115,10 +127,10 @@ def main():
     # clf = model1.clf.fit(X_train, y_train)
     # print clf.score(X_test, y_test)
 
-    #scores = cross_validation.cross_val_score(
-    #model1.clf, model1.feature_samples, model1.targets, cv=10, scoring='accuracy')
-    #print scores
-    #print scores.mean()
+    # scores = cross_validation.cross_val_score(
+    # model1.clf, model1.feature_samples, model1.targets, cv=10, scoring='accuracy')
+    # print scores
+    # print scores.mean()
 
     #print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
     #set2 = set()
@@ -157,3 +169,9 @@ def main():
 
     #dic_test = {1:0}
 
+
+
+
+
+if __name__ == '__main__':
+    main()

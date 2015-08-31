@@ -21,11 +21,11 @@ class Korpus(object):
     def __str__(self):
         return self.name+" Korpus mit "+str(self.size)+" Texten"
 
-    def get_text(self, text_id):
-        try:
-            return self.content[text_id]
-        except KeyError:
-            print "text with ID "+text_id+" does not exist"
+    # def get_text(self, text_id):
+    #     try:
+    #         return self.content[text_id]
+    #     except KeyError:
+    #         print "text with ID "+text_id+" does not exist"
 
     def insert_from_file(self, file_name):
         with open(file_name, "r") as f:

@@ -13,7 +13,7 @@ class TfIdf(Attribute):
     def __init__(self):
         self._name = "tf_idf"
         self._data = None
-        self.corpus = None
+        # self.corpus = None
         self.model = {}
         self.text_set = set()
         self.number_of_texts = 0

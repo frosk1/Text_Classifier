@@ -4,6 +4,8 @@ from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
 from sklearn import tree
 from sklearn.neighbors.nearest_centroid import NearestCentroid
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import RadiusNeighborsClassifier
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
@@ -43,14 +45,22 @@ class Model(object):
         :param classifier_name:
         :return:
         """
-        if classifier_name == "svm":
+        if classifier_name == "svm_linear":
             self.clf = svm.SVC(kernel="linear")
+        elif classifier_name == "svm_poly":
+            self.clf = svm.SVC(kernel="poly")
         elif classifier_name == "naive_bayes":
             self.clf = GaussianNB()
         elif classifier_name == "decision_tree":
             self.clf = tree.DecisionTreeClassifier()
         elif classifier_name == "nearest_centroid":
             self.clf = NearestCentroid()
+        elif classifier_name == "k_neighbors":
+            self.clf = KNeighborsClassifier(n_neighbors=100)
+        elif classifier_name == "radius_neighbors":
+            self.clf = RadiusNeighborsClassifier(radius=1.0, outlier_label=1)
+        else:
+            print "classifier does not exist. "
 
     def train(self, fraction):
         """
