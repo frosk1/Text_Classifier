@@ -1,10 +1,11 @@
+from text_classifier.attributes.attribute import Attribute
+import re
+import collections
 __author__ = 'jan'
 '''
 class BagOfWords :
 
 '''
-from text_classifier.attributes.attribute import Attribute
-import re
 
 
 class BagOfWords(Attribute):
@@ -12,7 +13,6 @@ class BagOfWords(Attribute):
     def __init__(self):
         self._name = "bag_of_words"
         self._data = None
-        # self.corpus = None
         self.text_set = set()
         self.model = {}
 
@@ -35,19 +35,14 @@ class BagOfWords(Attribute):
     def compute(self):
         self.build_model()
 
-        for textpair in self._data.values():
+        for text in self.text_set:
+            temp_model = collections.OrderedDict(sorted(self.model.items()))
 
-            temp_model = dict(self.model)
-            for token in textpair.text1.tokenlist:
+            for token in text.tokenlist:
                 if token.lower() in self.model.keys():
                     temp_model[token.lower()] += 1
-            textpair.text1.features["bag_of_words"] = temp_model.values()
 
-            temp_model = dict(self.model)
-            for token in textpair.text2.tokenlist:
-                if token.lower() in self.model.keys():
-                    temp_model[token.lower()] += 1
-            textpair.text2.features["bag_of_words"] = temp_model.values()
+            text.features["bag_of_words"] = temp_model.values()
 
     def build_model(self):
 
@@ -57,5 +52,5 @@ class BagOfWords(Attribute):
 
         for text in self.text_set:
             for token in text.tokenlist:
-                if re.match("\w+", token) and not self.model.has_key(token):
+                if re.match("\w+", token) and token not in self.model.keys():
                     self.model[token.lower()] = 0
