@@ -1,13 +1,13 @@
+from sklearn.metrics.pairwise import pairwise_distances
+
 __author__ = 'jan'
-
-
 
 '''
 Class Textpair :
 
 
 '''
-from sklearn.metrics.pairwise import pairwise_distances
+
 
 class TextPair(object):
 
@@ -19,10 +19,10 @@ class TextPair(object):
         self.feature_vector = []
 
     def __str__(self):
-        return "Textpair "+self.name+"   Target "+str(self.target)+"\n"+\
-               "ID: "+str(self.text1.id) + " Text: " + self.text1.text+"\n"+\
-               "Atrtibute:   "+str(self.text1.features)+"\n"+\
-               "ID: "+str(self.text2.id) + " Text: " + self.text2.text+"\n"+\
+        return "Textpair "+self.name+"   Target "+str(self.target)+"\n" +\
+               "ID: "+str(self.text1.id) + " Text: " + self.text1.text+"\n" +\
+               "Atrtibute:   "+str(self.text1.features)+"\n" +\
+               "ID: "+str(self.text2.id) + " Text: " + self.text2.text+"\n" +\
                "Atrtibute:   "+str(self.text2.features)
 
     def iter_feature_values(self):
@@ -35,8 +35,6 @@ class TextPair(object):
         else:
             print "Error in attribute class. Feature vectors has unequal size. textpair: " + self.name
 
-
-
     def vectorize(self):
         """
         method vectorizer :
@@ -47,8 +45,7 @@ class TextPair(object):
         for value1, value2 in TextPair.iter_feature_values(self):
             self.feature_vector.append(value1-value2)
 
-
-        ### Eculidean distance instead
+        # Eculidean distance instead
 
         # for i in pairwise_distances(self.text1.features.values(), self.text2.features.values(),metric='euclidean'):
         #    for x in i:
