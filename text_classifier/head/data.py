@@ -17,7 +17,7 @@ class Data(object):
         self.raw_data = raw_data
         self.real_data = {}
         self.real_data_size = 0
-        self.feature_list = None
+        # self.feature_list = None ; Soll implementieren, welche und wieviele attribute vorhanden sind.
 
     def __str__(self):
         return "Korpus: " + "'"+self.raw_data.name+"'" + ", mit " + str(self.raw_data.size) + " Texten" +\
@@ -30,8 +30,7 @@ class Data(object):
         :return:
         """
         with open(anno_file, "r") as f:
-            input = f.readlines()
-            for line in input:
+            for line in f.readlines():
                 pattern = re.search("Text (\d+), Text (\d+)\t\t(\d)", line)
                 textpair = TextPair(self.raw_data.content[int(pattern.group(1))],
                                     self.raw_data.content[int(pattern.group(2))],
@@ -39,7 +38,8 @@ class Data(object):
 
                 self.real_data[textpair.name] = textpair
         self.real_data_size = len(self.real_data)
-        
+        f.close()
+
     def attach_feature(self, feature_name):
         """
 
