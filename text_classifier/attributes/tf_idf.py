@@ -1,11 +1,12 @@
+from text_classifier.attributes.attribute import Attribute
+import re
+import math
+import collections
 __author__ = 'jan'
 """
 class TfIdf
 
 """
-from text_classifier.attributes.attribute import Attribute
-import re
-import math
 
 
 class TfIdf(Attribute):
@@ -13,7 +14,6 @@ class TfIdf(Attribute):
     def __init__(self):
         self._name = "tf_idf"
         self._data = None
-        # self.corpus = None
         self.model = {}
         self.text_set = set()
         self.number_of_texts = 0
@@ -38,16 +38,10 @@ class TfIdf(Attribute):
         self.build_model()
         df_model = self.build_df_model()
 
-        for textpair in self._data.values():
-            #Text1
-            tf_model = self.build_tf_model(textpair.text1.tokenlist)
+        for text in self.text_set:
+            tf_model = self.build_tf_model(text.tokenlist)
             tf_idf_model = self.build_tf_idf_model(tf_model, df_model)
-            textpair.text1.features["tf_idf"] = tf_idf_model.values()
-
-            #Text2
-            tf_model = self.build_tf_model(textpair.text2.tokenlist)
-            tf_idf_model = self.build_tf_idf_model(tf_model, df_model)
-            textpair.text2.features["tf_idf"] = tf_idf_model.values()
+            text.features["tf_idf"] = tf_idf_model.values()
 
     def build_model(self):
 
@@ -110,4 +104,5 @@ class TfIdf(Attribute):
 
                     idf = (math.log10(float(self.number_of_texts)/float(df_model[word])))
                     tf_idf_model[word] = (w_tf*idf)
-            return tf_idf_model
+
+            return collections.OrderedDict(sorted(tf_idf_model.items()))
