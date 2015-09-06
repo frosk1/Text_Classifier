@@ -39,8 +39,10 @@ class BagOfWords(Attribute):
             temp_model = collections.OrderedDict(sorted(self.model.items()))
 
             for token in text.tokenlist:
-                if token.lower() in self.model.keys():
+                try:
                     temp_model[token.lower()] += 1
+                except KeyError:
+                    continue
 
             text.features["bag_of_words"] = temp_model.values()
 
@@ -52,5 +54,5 @@ class BagOfWords(Attribute):
 
         for text in self.text_set:
             for token in text.tokenlist:
-                if re.match("\w+", token) and token not in self.model.keys():
+                if re.match("\w+", token):
                     self.model[token.lower()] = 0
