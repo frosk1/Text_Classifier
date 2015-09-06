@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
 __author__ = 'jan'
+import codecs
+import collections
 from text_classifier.body.text import Text
 from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
@@ -31,14 +34,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm, datasets
 
-#if __name__ == '__main__':
+
 def main():
 
 
     text_1 = Text(1, "Tim mag viele tolle sachen,)%$.")
     text_2 = Text(2, "Hallo heute ist ein schoener tag")
     file = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell.txt"
-    file2 = "/home/jan/annotation_test.txt"
+    file2 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation.txt"
     file3 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_regular_equal_Jan_Mel.txt"
     file4 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Jan.txt"
     file5 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Mel.txt"
@@ -46,8 +49,9 @@ def main():
 
 
 
-    k1 = Korpus("Test")
-    k1.insert_from_file(file)
+    k1 = Korpus("Test",content=file)
+
+    #k1.insert_from_file(file)
     #print k1.size
     #print text_1
     #print k1.get_text(50)
@@ -55,14 +59,14 @@ def main():
     #pair1 = TextPair(text_1, text_2, 1)
     #print pair1
     data1 = Data(k1)
-    data1.add_anno(file6)
+    data1.add_anno(file2)
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
-    #data1.attach_feature("bag_of_words")
+    data1.attach_feature("bag_of_words")
     #feature_list = ["bag_of_words", "tf_idf"]
     #data1.attach_feature_list(feature_list)
-    data1.attach_feature("tf_idf")
+    #data1.attach_feature("tf_idf")
 
     #for i in data1.real_data.values():
     #    print i.text1.features
@@ -71,6 +75,10 @@ def main():
     # print data1.real_data.values()[1].text2.features
     # data1.real_data.values()[0].text1.vectorize()
     # print data1.real_data.values()[0].text1.feature_vector
+    #print data1.real_data.values()[0].text1.tokenlist
+    #print data1.real_data.values()[1].text2.tokenlist
+
+
     #data1.real_data.values()[0].text1.vectorize()
     #data1.real_data.values()[0].text2.vectorize()
     #print(data1.real_data.values()[0].text1.feature_vector)
@@ -83,7 +91,7 @@ def main():
     #print data1.real_data
     model1 = Model(data1)
     #model1.set_classifier("svm_poly")
-    #model1.set_classifier("svm_linear")
+    model1.set_classifier("svm_linear")
     #model1.train(80)
     #model1.predict(model1.feature_samples[-1])
     #model1.clf = SGDClassifier()
@@ -96,11 +104,11 @@ def main():
     #model1.set_classifier("k_neighbors")
     #model1.set_classifier("radius_neighbors")
     # y = model1.evaluate_classification_report(80)
-    #x = model1.evaluate_cross_validation(10)
+    x = model1.evaluate_cross_validation(10)
     #
     # print y
-    #print x[0]
-    #print x[1]
+    print x[0]
+    print x[1]
     # kf = KFold(13, n_folds=4)
     #
     # for train, test in kf:
