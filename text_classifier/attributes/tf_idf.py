@@ -51,7 +51,7 @@ class TfIdf(Attribute):
 
         for text in self.text_set:
             for token in text.tokenlist:
-                if re.match("\w+", token) and not self.model.has_key(token):
+                if re.match("\w+", token):
                     self.model[token.lower()] = 0
 
         self.number_of_texts = len(self.text_set)
@@ -66,8 +66,10 @@ class TfIdf(Attribute):
 
             for text in self.text_set:
                 for token in text.tokenlist:
-                    if token.lower() in df_model.keys():
+                    try:
                         df_model[token.lower()] += 1
+                    except KeyError:
+                        continue
             return df_model
 
     def build_tf_model(self, tokenlist):
@@ -79,8 +81,10 @@ class TfIdf(Attribute):
             tf_model = dict(self.model)
 
             for token in tokenlist:
-                if token.lower() in self.model.keys():
+                try:
                     tf_model[token.lower()] += 1
+                except KeyError:
+                    continue
             return tf_model
 
     def build_tf_idf_model(self, tf_model, df_model):
