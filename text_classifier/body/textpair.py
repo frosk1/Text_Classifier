@@ -15,15 +15,15 @@ class TextPair(object):
         self.text1 = text1
         self.text2 = text2
         self.target = target
-        self.name = str(self.text1.id)+"_"+str(self.text2.id)
+        self.name = str(self.text1.id) + "_" + str(self.text2.id)
         self.feature_vector = []
 
     def __str__(self):
-        return "Textpair "+self.name+"   Target "+str(self.target)+"\n" +\
-               "ID: "+str(self.text1.id) + " Text: " + self.text1.text+"\n" +\
-               "Atrtibute:   "+str(self.text1.features)+"\n" +\
-               "ID: "+str(self.text2.id) + " Text: " + self.text2.text+"\n" +\
-               "Atrtibute:   "+str(self.text2.features)
+        return "Textpair " + self.name+"   Target " + str(self.target) + "\n" +\
+               "ID: " + str(self.text1.id) + " Text: " + self.text1.text + "\n" +\
+               "Atrtibute:   " + str(self.text1.features) + "\n" +\
+               "ID: " + str(self.text2.id) + " Text: " + self.text2.text + "\n" +\
+               "Atrtibute:   " + str(self.text2.features)
 
     def iter_feature_values(self):
         self.text1.vectorize()
@@ -43,7 +43,7 @@ class TextPair(object):
         differential between text1 and text2.
         """
         for value1, value2 in TextPair.iter_feature_values(self):
-            self.feature_vector.append(value1-value2)
+            self.feature_vector.append(value1 - value2)
 
         # Eculidean distance instead
 
