@@ -23,7 +23,7 @@ class Text(object):
         self.__feature_vector_init = False
 
     def __str__(self):
-        return "ID: "+str(self.id) + " Text: " + self.text
+        return "ID: " + str(self.id) + " Text: " + self.text
 
     def get_tokenlist(self):
         if self.text == "":
