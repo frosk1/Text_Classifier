@@ -1,4 +1,3 @@
-__author__ = 'jan'
 import numpy as np
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
@@ -9,6 +8,8 @@ from sklearn.neighbors import RadiusNeighborsClassifier
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
+__author__ = 'jan'
+
 
 '''
 Class Model :
@@ -71,7 +72,7 @@ class Model(object):
         if self.clf is None and self.feature_samples is None:
             print "please set an classifier first and fill feature, target"
         else:
-            count = int(round((float(len(self.targets))/float(100))*float(fraction), 0))
+            count = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
             self.clf.fit(self.feature_samples[:count], self.targets[:count])
 
     def predict(self, sample):
@@ -95,16 +96,14 @@ class Model(object):
             print "please set an classifier first and fill feature, target"
 
         elif folds > len(self.feature_samples):
-            print "There are " + str(len(self.feature_samples)) + " samples in the feature_samples."+"\n" + \
-                  "The folds has to be even or less than "+str(len(self.feature_samples)) + "."
+            print "There are " + str(len(self.feature_samples)) + " samples in the feature_samples." + "\n" + \
+                  "The folds has to be even or less than " + str(len(self.feature_samples)) + "."
 
         else:
             kf = KFold(len(self.feature_samples), n_folds=folds)
             accuracy_list = []
 
             for train, test in kf:
-                #print "train",train," test ",test
-                #print "len train", len(train), "test",len(test)
                 x_train, x_test, y_train, y_test = self.feature_samples[train], self.feature_samples[test], \
                                                    self.targets[train], self.targets[test]
 
@@ -115,11 +114,10 @@ class Model(object):
             sum_values = 0
 
             for acc_value in accuracy_list:
-
                 sum_values = sum_values + acc_value
                 n += 1
 
-            acc_mean = (sum_values/n)
+            acc_mean = (sum_values / n)
 
             return accuracy_list, acc_mean
 
@@ -128,8 +126,8 @@ class Model(object):
             print "please set an classifier first and fill feature, target"
 
         else:
-            count = int(round((float(len(self.targets))/float(100))*float(fraction), 0))
-            count2 = len(self.targets)-count
+            count = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
+            count2 = len(self.targets) - count
 
             # sollte auf 100 % /fraction trainiert werden, wird auch auf 100% getestet
             # wenn count2 0 ist (bei 100% count), dann wird self.targets[-count2:] zu self.targets[:]
