@@ -2,11 +2,17 @@
 __author__ = 'jan'
 import codecs
 import collections
+from time import time
 from text_classifier.body.text import Text
 from text_classifier.body.korpus import Korpus
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.data import Data
 from text_classifier.model.model import Model
+from sklearn import tree
+from sklearn.neighbors.nearest_centroid import NearestCentroid
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import RadiusNeighborsClassifier
+from sklearn.cross_validation import KFold
 from sklearn import svm
 from sklearn import linear_model
 from sklearn.linear_model import SGDClassifier
@@ -49,9 +55,8 @@ def main():
 
 
 
-    k1 = Korpus("Test",content=file)
-
-    #k1.insert_from_file(file)
+    k1 = Korpus("Test")
+    k1.insert_from_file(file)
     #print k1.size
     #print text_1
     #print k1.get_text(50)
@@ -90,12 +95,12 @@ def main():
 
     #print data1.real_data
     model1 = Model(data1)
-    #model1.set_classifier("svm_poly")
     model1.set_classifier("svm_linear")
+    #model1.set_classifier("svm_polyr")
     #model1.train(80)
     #model1.predict(model1.feature_samples[-1])
     #model1.clf = SGDClassifier()
-
+    from sklearn.naive_bayes import GaussianNB
 
     #np.mean(predicted == twenty_test.target)
     #model1.set_classifier("naive_bayes")
@@ -103,12 +108,11 @@ def main():
     #model1.set_classifier("nearest_centroid")
     #model1.set_classifier("k_neighbors")
     #model1.set_classifier("radius_neighbors")
-    # y = model1.evaluate_classification_report(80)
-    x = model1.evaluate_cross_validation(10)
+    y = model1.evaluate_classification_report(80)
+    #x = model1.evaluate_cross_validation(10)
     #
     # print y
-    print x[0]
-    print x[1]
+    #
     # kf = KFold(13, n_folds=4)
     #
     # for train, test in kf:
@@ -130,7 +134,22 @@ def main():
     # X_train, X_test, y_train, y_test = cross_validation.train_test_split(
     # model1.feature_samples, model1.targets, test_size=0.4, random_state=0)
     #
+
+
+    # class LenAttributeException(Exception):
+    #     #def __init__(self):
+    #         #self.value = value
     #
+    #     def __str__(self):
+    #         return "Fehler"
+    #
+    # a = 3
+    # b = 4
+    # if a == b:
+    #     print "yes"
+    # else:
+    #     raise LenAttributeException()
+
     #
     # clf = model1.clf.fit(X_train, y_train)
     # print clf.score(X_test, y_test)
@@ -182,4 +201,7 @@ def main():
 
 
 if __name__ == '__main__':
+    x = time()
     main()
+    y = time()
+    print "Time needed :", y-x, "sec"
