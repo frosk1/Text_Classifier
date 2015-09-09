@@ -13,7 +13,6 @@ __author__ = 'jan'
 
 
 class TestBodyModel(unittest.TestCase):
-
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -25,13 +24,11 @@ class TestBodyModel(unittest.TestCase):
 
 
 class TestBodyKorpus(unittest.TestCase):
-
     def setUp(self):
         self.korpus_file = res.korpus_file
 
 
 class TestBodyText(unittest.TestCase):
-
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -43,7 +40,6 @@ class TestBodyText(unittest.TestCase):
 
 
 class TestBodyTextpair(unittest.TestCase):
-
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -55,7 +51,6 @@ class TestBodyTextpair(unittest.TestCase):
 
 
 class TestBodyData(unittest.TestCase):
-
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -64,9 +59,7 @@ class TestBodyData(unittest.TestCase):
 
 
 class TestBodyAttribute(unittest.TestCase):
-
     def setUp(self):
-
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
         self.test_korpus = Korpus("Test")
@@ -75,12 +68,12 @@ class TestBodyAttribute(unittest.TestCase):
         self.test_data.add_anno(self.anno_file)
         self.token_list = res.token_list
 
+
 ##################################################################################################################
 ##################################################################################################################
 
 
 class TextTest(TestBodyText):
-
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing Text Class ######################" + "\n"
@@ -122,7 +115,6 @@ class TextTest(TestBodyText):
 
 
 class TextPairTest(TestBodyTextpair):
-
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing Textpair Class ######################" + "\n"
@@ -179,7 +171,6 @@ class TextPairTest(TestBodyTextpair):
 
 
 class KorpusTest(TestBodyKorpus):
-
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing Korpus Class ######################" + "\n"
@@ -208,14 +199,13 @@ class KorpusTest(TestBodyKorpus):
 
 
 class DataTest(TestBodyData):
-
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing Data Class ######################" + "\n"
 
     @classmethod
     def tearDownClass(cls):
-        print "\n"+"###################### End Testing Data Class ######################"
+        print "\n" + "###################### End Testing Data Class ######################"
 
     def setUp(self):
         test_name = self.shortDescription()
@@ -284,14 +274,13 @@ class DataTest(TestBodyData):
 
 
 class BagOfWordsTest(TestBodyAttribute):
-
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing BagOfWords Class ######################" + "\n"
 
     @classmethod
     def tearDownClass(cls):
-        print "\n"+"###################### End Testing BagOfWords Class ######################"
+        print "\n" + "###################### End Testing BagOfWords Class ######################"
 
     def setUp(self):
         test_name = self.shortDescription()
@@ -342,14 +331,13 @@ class BagOfWordsTest(TestBodyAttribute):
 
 
 class TfIdfTest(TestBodyAttribute):
-
     @classmethod
     def setUpClass(cls):
         print "#################### Begin Testing TfIdf Class ####################" + "\n"
 
     @classmethod
     def tearDownClass(cls):
-        print "\n"+"###################### End Testing TfIdf Class ######################"
+        print "\n" + "###################### End Testing TfIdf Class ######################"
 
     def setUp(self):
         test_name = self.shortDescription()
@@ -429,7 +417,6 @@ class TfIdfTest(TestBodyAttribute):
 
 
 class ModelTest(TestBodyModel):
-
     @classmethod
     def setUpClass(cls):
         print "#################### Begin Testing Model Class ####################" + "\n"
