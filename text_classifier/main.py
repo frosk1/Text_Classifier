@@ -69,6 +69,7 @@ def main():
     #print data1
     #data1.attach_feature("standard_attribute")
     data1.attach_feature("bag_of_words")
+    data1.attach_feature("Bla")
     #feature_list = ["bag_of_words", "tf_idf"]
     #data1.attach_feature_list(feature_list)
     #data1.attach_feature("tf_idf")
@@ -136,19 +137,6 @@ def main():
     #
 
 
-    # class LenAttributeException(Exception):
-    #     #def __init__(self):
-    #         #self.value = value
-    #
-    #     def __str__(self):
-    #         return "Fehler"
-    #
-    # a = 3
-    # b = 4
-    # if a == b:
-    #     print "yes"
-    # else:
-    #     raise LenAttributeException()
 
     #
     # clf = model1.clf.fit(X_train, y_train)
@@ -165,6 +153,15 @@ def main():
     #set1.add("red")
     #print set2.add("hallo")
     #print set2
+
+
+    # t1 = Text(1,"Hallo Herr Bla.")
+    # t2 = Text(2,"Hallo Herr Mu.")
+    # t1.features["bla"] = [0.1]
+    # t2.features["bla"] = [0.1,0.3]
+    # ko = TextPair(t1, t2, 1)
+    # ko.vectorize()
+
 
     #textpair = data1.real_data.values()[0]
     #text1 = textpair.text1
