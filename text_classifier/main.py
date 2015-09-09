@@ -69,7 +69,6 @@ def main():
     #print data1
     #data1.attach_feature("standard_attribute")
     data1.attach_feature("bag_of_words")
-    data1.attach_feature("Bla")
     #feature_list = ["bag_of_words", "tf_idf"]
     #data1.attach_feature_list(feature_list)
     #data1.attach_feature("tf_idf")
@@ -97,6 +96,7 @@ def main():
     #print data1.real_data
     model1 = Model(data1)
     model1.set_classifier("svm_linear")
+    #model1.train(80)
     #model1.set_classifier("svm_polyr")
     #model1.train(80)
     #model1.predict(model1.feature_samples[-1])
@@ -109,8 +109,8 @@ def main():
     #model1.set_classifier("nearest_centroid")
     #model1.set_classifier("k_neighbors")
     #model1.set_classifier("radius_neighbors")
-    y = model1.evaluate_classification_report(80)
-    #x = model1.evaluate_cross_validation(10)
+    #y = model1.evaluate_classification_report(80)
+    x = model1.evaluate_cross_validation(16)
     #
     # print y
     #

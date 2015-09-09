@@ -1,15 +1,15 @@
+import abc
 __author__ = 'jan'
 
-import abc
-from random import randint
+
 '''
 abstract Class Atrtibute :
 
 '''
 
+
 class Attribute(object):
     __metaclass__ = abc.ABCMeta
-
 
     @abc.abstractproperty
     def name(self):

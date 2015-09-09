@@ -3,8 +3,8 @@ from text_classifier.head.feature import Feature
 from text_classifier.exceptions import WrongKorpusFileFormatException
 from text_classifier.exceptions import NoAnnotationException
 import re
-__author__ = 'jan'
 
+__author__ = 'jan'
 
 '''
 Class Data :
@@ -14,7 +14,6 @@ Class Data :
 
 
 class Data(object):
-
     def __init__(self, raw_data):
         self.raw_data = raw_data
         self.real_data = {}
@@ -22,8 +21,8 @@ class Data(object):
         self.feature_list = ["bag_of_words", "tf_idf"]
 
     def __str__(self):
-        return "Korpus: " + "'"+self.raw_data.name+"'" + ", mit " + str(self.raw_data.size) + " Texten" +\
-               "\n"+"Annotierte Textpaare: " + str(self.real_data_size)
+        return "Korpus: " + "'" + self.raw_data.name + "'" + ", mit " + str(self.raw_data.size) + " Texten" + \
+               "\n" + "Annotierte Textpaare: " + str(self.real_data_size)
 
     def add_anno(self, anno_file):
         """
@@ -67,4 +66,3 @@ class Data(object):
             raise NoAnnotationException(self.raw_data.name)
         else:
             self.real_data = Feature.add_attribute_list(feature_list, self.real_data)
-

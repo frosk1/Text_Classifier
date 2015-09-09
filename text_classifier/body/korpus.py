@@ -5,7 +5,6 @@ from text_classifier.exceptions import WrongKorpusFileFormatException
 __author__ = 'jan'
 
 
-
 '''
 Class Korpus :
 

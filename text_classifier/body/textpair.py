@@ -1,4 +1,4 @@
-from sklearn.metrics.pairwise import pairwise_distances
+# from sklearn.metrics.pairwise import pairwise_distances
 from text_classifier.exceptions import UnequalSizeException
 
 __author__ = 'jan'
@@ -11,7 +11,6 @@ Class Textpair :
 
 
 class TextPair(object):
-
     def __init__(self, text1, text2, target):
         self.text1 = text1
         self.text2 = text2
@@ -20,10 +19,10 @@ class TextPair(object):
         self.feature_vector = []
 
     def __str__(self):
-        return "Textpair " + self.name+"   Target " + str(self.target) + "\n" +\
-               "ID: " + str(self.text1.id) + " Text: " + self.text1.text + "\n" +\
-               "Atrtibute:   " + str(self.text1.features) + "\n" +\
-               "ID: " + str(self.text2.id) + " Text: " + self.text2.text + "\n" +\
+        return "Textpair " + self.name + "   Target " + str(self.target) + "\n" + \
+               "ID: " + str(self.text1.id) + " Text: " + self.text1.text + "\n" + \
+               "Atrtibute:   " + str(self.text1.features) + "\n" + \
+               "ID: " + str(self.text2.id) + " Text: " + self.text2.text + "\n" + \
                "Atrtibute:   " + str(self.text2.features)
 
     def iter_feature_values(self):
@@ -46,8 +45,8 @@ class TextPair(object):
         for value1, value2 in TextPair.iter_feature_values(self):
             self.feature_vector.append(value1 - value2)
 
-        # Eculidean distance instead
+            # Eculidean distance instead
 
-        # for i in pairwise_distances(self.text1.features.values(), self.text2.features.values(),metric='euclidean'):
-        #    for x in i:
-        #        self.feature_vector.append(x)
+            # for i in pairwise_distances(self.text1.features.values(), self.text2.features.values(),metric='euclidean'):
+            #    for x in i:
+            #        self.feature_vector.append(x)
