@@ -1,0 +1,15 @@
+Text 144, Text 149		1 
+Text 145, Text 148		0 
+Text 148, Text 149		1 
+Text 145, Text 149		0 
+Text 146, Text 148		1 
+Text 146, Text 147		1 
+Text 147, Text 149		1 
+Text 145, Text 146		0 
+Text 144, Text 145		1 
+Text 145, Text 147		1 
+Text 146, Text 149		0 
+Text 144, Text 147		1 
+Text 147, Text 148		1 
+Text 144, Text 148		0 
+Text 144, Text 146		0 

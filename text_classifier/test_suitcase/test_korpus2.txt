@@ -1,0 +1,3 @@
+1		Hallo Herr Freitag.
+2		Wie geht es freitag?
+3		Super geht es Hallo!
