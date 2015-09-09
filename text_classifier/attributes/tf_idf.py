@@ -2,6 +2,7 @@ from text_classifier.attributes.attribute import Attribute
 import re
 import math
 import collections
+
 __author__ = 'jan'
 """
 class TfIdf
@@ -10,7 +11,6 @@ class TfIdf
 
 
 class TfIdf(Attribute):
-
     def __init__(self):
         self._name = "tf_idf"
         self._data = None
@@ -101,12 +101,12 @@ class TfIdf(Attribute):
             tf_idf_model = dict(self.model)
 
             for word in self.model.keys():
-                    if tf_model[word] == 0:
-                        w_tf = 0
-                    else:
-                        w_tf = (1+math.log10(tf_model[word]))
+                if tf_model[word] == 0:
+                    w_tf = 0
+                else:
+                    w_tf = (1 + math.log10(tf_model[word]))
 
-                    idf = (math.log10(float(self.number_of_texts)/float(df_model[word])))
-                    tf_idf_model[word] = (w_tf*idf)
+                idf = (math.log10(float(self.number_of_texts) / float(df_model[word])))
+                tf_idf_model[word] = (w_tf * idf)
 
             return collections.OrderedDict(sorted(tf_idf_model.items()))
