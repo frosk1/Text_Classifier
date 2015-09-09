@@ -1,4 +1,5 @@
 from sklearn.metrics.pairwise import pairwise_distances
+from text_classifier.exceptions import UnequalSizeException
 
 __author__ = 'jan'
 
@@ -33,7 +34,7 @@ class TextPair(object):
             for i in range(len(self.text1.feature_vector)):
                 yield (self.text1.feature_vector[i], self.text2.feature_vector[i])
         else:
-            print "Error in attribute class. Feature vectors has unequal size. textpair: " + self.name
+            raise UnequalSizeException(self.name)
 
     def vectorize(self):
         """

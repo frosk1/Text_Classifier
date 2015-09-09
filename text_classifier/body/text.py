@@ -1,5 +1,7 @@
-__author__ = 'jan'
 from nltk.tokenize import wordpunct_tokenize
+from text_classifier.exceptions import EmptyTextException
+from text_classifier.exceptions import EmptyFeatureException
+__author__ = 'jan'
 
 
 '''
@@ -27,7 +29,8 @@ class Text(object):
 
     def get_tokenlist(self):
         if self.text == "":
-            return "text is empty"
+            raise EmptyTextException(self.id)
+
         else:
             return self.tokenlist
 
@@ -35,7 +38,7 @@ class Text(object):
 
         if not self.__feature_vector_init:
             if len(self.features) == 0:
-                print "Please attach features first. Need to call data.py for that."
+                raise EmptyFeatureException(self.id)
             else:
                 for value in self.features.values():
                     if isinstance(value, list):

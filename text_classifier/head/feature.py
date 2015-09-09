@@ -1,7 +1,7 @@
 from __builtin__ import staticmethod
-from text_classifier.attributes.standard_attribute import StandardAttribute
 from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
+from text_classifier.exceptions import FeatureNotExistException
 __author__ = 'jan'
 
 
@@ -17,17 +17,14 @@ class Feature(object):
 
     @staticmethod
     def init_attribute(attribute_name):
-        if attribute_name == "standard_attribute":
-            attribute = StandardAttribute()
-            return attribute
-        elif attribute_name == "bag_of_words":
+        if attribute_name == "bag_of_words":
             attribute = BagOfWords()
             return attribute
         elif attribute_name == "tf_idf":
             attribute = TfIdf()
             return attribute
         else:
-            print "Feature does not exist."
+            raise FeatureNotExistException(attribute_name)
 
     @staticmethod
     def add_attribute(attribute_name, data):
@@ -38,9 +35,6 @@ class Feature(object):
 
     @staticmethod
     def add_attribute_list(attribute_list, data):
-
         for att_name in attribute_list:
             data = Feature.add_attribute(att_name, data)
         return data
-
-

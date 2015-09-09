@@ -51,13 +51,22 @@ class UnequalSizeException(Exception):
         return "Error in attribute class. Feature-vectors has unequal size. Textpair: " + str(self.name)
 
 
-class WrongFileFormatException(Exception):
+class WrongAnnoFileFormatException(Exception):
 
     def __init__(self, anno_file):
         self.anno_file = anno_file
 
     def __str__(self):
         return "Invalid Format in Annotations-File: " + self.anno_file
+
+
+class WrongKorpusFileFormatException(Exception):
+
+    def __init__(self, korpus_file):
+        self.korpus_file = korpus_file
+
+    def __str__(self):
+        return "Invalid Format in Korpus-File: " + self.korpus_file
 
 
 class NoAnnotationException(Exception):
