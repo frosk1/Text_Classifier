@@ -8,8 +8,12 @@ from sklearn.neighbors import RadiusNeighborsClassifier
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
-__author__ = 'jan'
+from text_classifier.exceptions import ClassifierNotExistException
+from text_classifier.exceptions import EmptyFeaturesEmptyTargetsException
+from text_classifier.exceptions import NoClassifierException
+from text_classifier.exceptions import FoldSizeToBigException
 
+__author__ = 'jan'
 
 '''
 Class Model :
@@ -18,11 +22,12 @@ Class Model :
 
 
 class Model(object):
-
     def __init__(self, data):
         self.clf = None
         self.data = data
         self.feature_samples, self.targets = self.fill_feature_target()
+        self.classifier_list = ["svm_linear", "svm_poly", "naive_bayes", "decision_tree", "nearest_centroid",
+                                "k_neighbors", "radius_neighbors"]
 
     def fill_feature_target(self):
         """
@@ -61,7 +66,7 @@ class Model(object):
         elif classifier_name == "radius_neighbors":
             self.clf = RadiusNeighborsClassifier(radius=1.0, outlier_label=1)
         else:
-            print "classifier does not exist. "
+            raise ClassifierNotExistException(classifier_name)
 
     def train(self, fraction):
         """
@@ -69,8 +74,10 @@ class Model(object):
         :param fraction:0
         :return:
         """
-        if self.clf is None and self.feature_samples is None:
-            print "please set an classifier first and fill feature, target"
+        if self.clf is None:
+            raise NoClassifierException
+        elif self.targets.size == 0 and self.feature_samples.size == 0:
+            raise EmptyFeaturesEmptyTargetsException
         else:
             count = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
             self.clf.fit(self.feature_samples[:count], self.targets[:count])
@@ -82,7 +89,9 @@ class Model(object):
         :return:
         """
         if self.clf is None:
-            print "please set an classifier first and fill feature, target"
+            raise NoClassifierException
+        elif self.targets.size == 0 and self.feature_samples.size == 0:
+            raise EmptyFeaturesEmptyTargetsException
         else:
             print self.clf.predict(sample)
 
@@ -92,12 +101,14 @@ class Model(object):
         :param folds:
         :return:
         """
-        if self.clf is None and self.feature_samples is None:
-            print "please set an classifier first and fill feature, target"
+        if self.clf is None:
+            raise NoClassifierException
+
+        elif self.targets.size == 0 and self.feature_samples.size == 0:
+            raise EmptyFeaturesEmptyTargetsException
 
         elif folds > len(self.feature_samples):
-            print "There are " + str(len(self.feature_samples)) + " samples in the feature_samples." + "\n" + \
-                  "The folds has to be even or less than " + str(len(self.feature_samples)) + "."
+            raise FoldSizeToBigException(folds, self.feature_samples)
 
         else:
             kf = KFold(len(self.feature_samples), n_folds=folds)
@@ -122,8 +133,11 @@ class Model(object):
             return accuracy_list, acc_mean
 
     def evaluate_classification_report(self, fraction):
-        if self.clf is None and self.feature_samples is None:
-            print "please set an classifier first and fill feature, target"
+        if self.clf is None:
+            raise NoClassifierException
+
+        elif self.targets.size == 0 and self.feature_samples.size == 0:
+            raise EmptyFeaturesEmptyTargetsException
 
         else:
             count = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
