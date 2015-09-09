@@ -76,3 +76,35 @@ class NoAnnotationException(Exception):
 
     def __str__(self):
         return "No Annotation set for korpus '" + self.korpus_name + "'. Please add_anno first."
+
+
+class ClassifierNotExistException(Exception):
+
+    def __init__(self, clf_name):
+        self.clf_name = clf_name
+
+    def __str__(self):
+        return "The Classifier " + str(self.clf_name) + " does not exist. Lookup Model.classifier_list."
+
+
+class NoClassifierException(Exception):
+
+    def __str__(self):
+        return "Set an classifier first. Call Model.set_classifier."
+
+
+class EmptyFeaturesEmptyTargetsException(Exception):
+
+    def __str__(self):
+        return "Fill features and targets first. Call Model.fill_feature_target"
+
+
+class FoldSizeToBigException(Exception):
+
+    def __init__(self, folds, samples):
+        self.folds = folds
+        self.samples = samples
+
+    def __str__(self):
+        return "Fold size " + str(self.folds) + " is to big. The folds has to be even or less than Sample size "\
+               + str(len(self.samples)) + "."
