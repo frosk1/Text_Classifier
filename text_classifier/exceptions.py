@@ -108,3 +108,21 @@ class FoldSizeToBigException(Exception):
     def __str__(self):
         return "Fold size " + str(self.folds) + " is to big. The folds has to be even or less than Sample size "\
                + str(len(self.samples)) + "."
+
+
+class ModelNotSetException(Exception):
+
+    def __str__(self):
+        return "Build model first. Call Model.build_model() for that."
+
+
+class DFModelNotSetException(Exception):
+
+    def __str__(self):
+        return "Build df_model first. Call Model.build_df_model() for that."
+
+
+class TFModelNotSetException(Exception):
+
+    def __str__(self):
+        return "Build tf_model first. Call Model.build_tf_model() for that."
