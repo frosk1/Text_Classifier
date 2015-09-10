@@ -4,6 +4,7 @@ from text_classifier.head.data import Data
 from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
 from text_classifier.model.model import Model
+from text_classifier.attributes.readability import Readability
 import numpy as np
 import unittest
 import collections
@@ -58,7 +59,7 @@ class TestBodyData(unittest.TestCase):
         self.test_korpus.insert_from_file(self.korpus_file)
 
 
-class TestBodyAttribute(unittest.TestCase):
+class TestBodyAttribute1(unittest.TestCase):
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -67,6 +68,17 @@ class TestBodyAttribute(unittest.TestCase):
         self.test_data = Data(self.test_korpus)
         self.test_data.add_anno(self.anno_file)
         self.token_list = res.token_list
+
+
+class TestBodyAttribute2(unittest.TestCase):
+    def setUp(self):
+        self.korpus_file = res.korpus_file
+        self.anno_file = res.anno_file
+        self.test_korpus = Korpus("Test")
+        self.test_korpus.insert_from_file(self.korpus_file)
+        self.test_data = Data(self.test_korpus)
+        self.test_data.add_anno(self.anno_file)
+        self.readability_index = res.readability_index
 
 
 ##################################################################################################################
@@ -273,7 +285,7 @@ class DataTest(TestBodyData):
             self.assertItemsEqual(textpair.text2.features.keys(), self.feature_list)
 
 
-class BagOfWordsTest(TestBodyAttribute):
+class BagOfWordsTest(TestBodyAttribute1):
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing BagOfWords Class ######################" + "\n"
@@ -289,7 +301,7 @@ class BagOfWordsTest(TestBodyAttribute):
         if test_name == "Test routine build_model() in BagOfWords":
             print "setting up for testing build_model()"
             self.mock_obj = BagOfWords()
-            self.mock_obj._data = self.test_data.real_data
+            self.mock_obj._text_set = self.test_data.r_D_text_set
             self.mock_obj.build_model()
 
         elif test_name == "Test routine compute() in BagOfWords":
@@ -330,7 +342,7 @@ class BagOfWordsTest(TestBodyAttribute):
             self.assertListEqual(textpair.text2.features["bag_of_words"], self.term_freq[textpair.text2.id])
 
 
-class TfIdfTest(TestBodyAttribute):
+class TfIdfTest(TestBodyAttribute1):
     @classmethod
     def setUpClass(cls):
         print "#################### Begin Testing TfIdf Class ####################" + "\n"
@@ -343,7 +355,7 @@ class TfIdfTest(TestBodyAttribute):
         test_name = self.shortDescription()
         super(TfIdfTest, self).setUp()
         self.mock_obj = TfIdf()
-        self.mock_obj._data = self.test_data.real_data
+        self.mock_obj._text_set = self.test_data.r_D_text_set
         self.mock_obj.build_model()
 
         if test_name == "Test routine build_model() in TfIdf":
@@ -414,6 +426,44 @@ class TfIdfTest(TestBodyAttribute):
         for textpair in self.test_data.real_data.values():
             self.assertListEqual(textpair.text1.features["tf_idf"], self.tf_idf_weight[textpair.text1.id])
             self.assertListEqual(textpair.text2.features["tf_idf"], self.tf_idf_weight[textpair.text2.id])
+
+
+class ReadabilityTest(TestBodyAttribute2):
+    @classmethod
+    def setUpClass(cls):
+        print "#################### Begin Testing Readability Class ####################" + "\n"
+
+    @classmethod
+    def tearDownClass(cls):
+        print "\n" + "###################### End Testing Readability Class ######################"
+
+    def setUp(self):
+        test_name = self.shortDescription()
+        super(ReadabilityTest, self).setUp()
+
+        if test_name == "Test routine compute() in Model":
+            print "setting up for testing  compute()"
+            self.mock_obj = Readability()
+            self.mock_obj._text_set = self.test_data.r_D_text_set
+            self.test_data.attach_feature("readability")
+
+    def tearDown(self):
+        test_name = self.shortDescription()
+        self.korpus_file = None
+        self.anno_file = None
+        self.test_korpus = None
+        self.test_data = None
+        self.readability_index = None
+
+        if test_name == "Test routine compute() in Model":
+            print "cleaning up for testing  compute()"
+            self.mock_obj = None
+            print "--------------------------------------------------------------"
+
+    def test__Readability__compute(self):
+        """ Test routine compute() in Model """
+        for text in self.test_data.r_D_text_set:
+            self.assertEqual(round(text.features["readability"], 10), self.readability_index[text.id])
 
 
 class ModelTest(TestBodyModel):
