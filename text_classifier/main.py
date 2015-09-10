@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'jan'
+import text_classifier.test_suitcase.resource as res
 import codecs
 import collections
 from time import time
@@ -39,7 +39,7 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm, datasets
-
+__author__ = 'jan'
 
 def main():
 
@@ -68,7 +68,9 @@ def main():
     #print data1.real_data_size
     #print data1
     #data1.attach_feature("standard_attribute")
-    data1.attach_feature("bag_of_words")
+    #data1.attach_feature("bag_of_words")
+    data1.attach_feature("readability")
+
     #feature_list = ["bag_of_words", "tf_idf"]
     #data1.attach_feature_list(feature_list)
     #data1.attach_feature("tf_idf")
@@ -110,7 +112,9 @@ def main():
     #model1.set_classifier("k_neighbors")
     #model1.set_classifier("radius_neighbors")
     #y = model1.evaluate_classification_report(80)
-    x = model1.evaluate_cross_validation(16)
+    x = model1.evaluate_cross_validation(10)
+    print x[0]
+    print x[1]
     #
     # print y
     #
