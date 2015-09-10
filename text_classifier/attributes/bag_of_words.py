@@ -12,8 +12,7 @@ class BagOfWords(Attribute):
 
     def __init__(self):
         self._name = "bag_of_words"
-        self._data = None
-        self.text_set = set()
+        self._text_set = None
         self.model = {}
 
     @property
@@ -25,17 +24,17 @@ class BagOfWords(Attribute):
         self._name = value
 
     @property
-    def data(self):
-        return self._data
+    def text_set(self):
+        return self._text_set
 
-    @data.setter
-    def data(self, new_value):
-        self._data = new_value
+    @text_set.setter
+    def text_set(self, new_value):
+        self._text_set = new_value
 
     def compute(self):
         self.build_model()
 
-        for text in self.text_set:
+        for text in self._text_set:
             temp_model = collections.OrderedDict(sorted(self.model.items()))
 
             for token in text.tokenlist:
@@ -47,12 +46,6 @@ class BagOfWords(Attribute):
             text.features["bag_of_words"] = temp_model.values()
 
     def build_model(self):
-
-        for textpair in self._data.values():
-            self.text_set.add(textpair.text1)
-            self.text_set.add(textpair.text2)
-
-        for text in self.text_set:
-            for token in text.tokenlist:
-                if re.match("\w+", token):
-                    self.model[token.lower()] = 0
+        for text in self._text_set:
+            for word in text.wordlist:
+                self.model[word.lower()] = 0

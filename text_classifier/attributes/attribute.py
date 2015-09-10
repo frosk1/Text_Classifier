@@ -26,14 +26,14 @@ class Attribute(object):
         return
 
     @abc.abstractproperty
-    def data(self):
+    def text_set(self):
         """
         Annotated Data, given by the Data class
         """
         return
 
-    @data.setter
-    def data(self, new_value):
+    @text_set.setter
+    def text_set(self, new_value):
         """
         Setter method for attribute 'data'.
         """

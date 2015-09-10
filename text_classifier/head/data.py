@@ -17,8 +17,9 @@ class Data(object):
     def __init__(self, raw_data):
         self.raw_data = raw_data
         self.real_data = {}
+        self.r_D_text_set = set()
         self.real_data_size = 0
-        self.feature_list = ["bag_of_words", "tf_idf"]
+        self.feature_list = ["bag_of_words", "tf_idf", "readability"]
 
     def __str__(self):
         return "Korpus: " + "'" + self.raw_data.name + "'" + ", mit " + str(self.raw_data.size) + " Texten" + \
@@ -44,6 +45,10 @@ class Data(object):
         self.real_data_size = len(self.real_data)
         f.close()
 
+        for textpair in self.real_data.values():
+            self.r_D_text_set.add(textpair.text1)
+            self.r_D_text_set.add(textpair.text2)
+
     def attach_feature(self, feature_name):
         """
 
@@ -54,7 +59,7 @@ class Data(object):
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
         else:
-            self.real_data = Feature.add_attribute(feature_name, self.real_data)
+            Feature.add_attribute(feature_name, self.r_D_text_set)
 
     def attach_feature_list(self, feature_list):
         """
@@ -65,4 +70,4 @@ class Data(object):
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
         else:
-            self.real_data = Feature.add_attribute_list(feature_list, self.real_data)
+            Feature.add_attribute_list(feature_list, self.r_D_text_set)
