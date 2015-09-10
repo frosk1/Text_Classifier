@@ -1,6 +1,8 @@
 from nltk.tokenize import wordpunct_tokenize
+from nltk.tokenize import sent_tokenize
 from text_classifier.exceptions import EmptyTextException
 from text_classifier.exceptions import EmptyFeatureException
+import re
 __author__ = 'jan'
 
 
@@ -20,6 +22,8 @@ class Text(object):
         self.text = text_string
         self.id = text_id
         self.tokenlist = wordpunct_tokenize(self.text.decode("utf8"))
+        self.sentencelist = sent_tokenize(self.text.decode("utf-8"))
+        self.wordlist = self.set_wordlist()
         self.features = {}
         self.feature_vector = []
         self.__feature_vector_init = False
@@ -33,6 +37,16 @@ class Text(object):
 
         else:
             return self.tokenlist
+
+    def set_wordlist(self):
+        if self.text == "":
+            raise EmptyTextException(self.id)
+        else:
+            wordlist = []
+            for token in self.tokenlist:
+                if re.sub("\W", "", token):
+                    wordlist.append(token)
+            return wordlist
 
     def vectorize(self):
 
