@@ -24,6 +24,7 @@ class Text(object):
         self.tokenlist = wordpunct_tokenize(self.text.decode("utf8"))
         self.sentencelist = sent_tokenize(self.text.decode("utf-8"))
         self.wordlist = self.set_wordlist()
+        self.wordlist_lower = map(unicode.lower, self.wordlist)
         self.features = {}
         self.feature_vector = []
         self.__feature_vector_init = False
