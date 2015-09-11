@@ -35,11 +35,15 @@ class BagOfWords(Attribute):
         self.build_model()
 
         for text in self._text_set:
-            temp_model = collections.OrderedDict(sorted(self.model.items()))
+            # for test_case ''' test__bag_of_words__compute ''' use the OrderedDict
+            # to check the values with the term_frequency in test_suitcase.resource
+            #
+            # temp_model = collections.OrderedDict(sorted(self.model.items()))
 
-            for token in text.tokenlist:
+            temp_model = dict(self.model)
+            for word in text.wordlist_lower:
                 try:
-                    temp_model[token.lower()] += 1
+                    temp_model[word] += 1
                 except KeyError:
                     continue
 
@@ -47,5 +51,5 @@ class BagOfWords(Attribute):
 
     def build_model(self):
         for text in self._text_set:
-            for word in text.wordlist:
-                self.model[word.lower()] = 0
+            for word in text.wordlist_lower:
+                self.model[word] = 0

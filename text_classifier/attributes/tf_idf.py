@@ -40,15 +40,15 @@ class TfIdf(Attribute):
         df_model = self.build_df_model()
 
         for text in self._text_set:
-            tf_model = self.build_tf_model(text.tokenlist)
+            tf_model = self.build_tf_model(text.wordlist_lower)
             tf_idf_model = self.build_tf_idf_model(tf_model, df_model)
             text.features["tf_idf"] = tf_idf_model.values()
 
     def build_model(self):
 
         for text in self._text_set:
-            for word in text.wordlist:
-                self.model[word.lower()] = 0
+            for word in text.wordlist_lower:
+                self.model[word] = 0
 
         self.number_of_texts = len(self.text_set)
 
@@ -61,14 +61,14 @@ class TfIdf(Attribute):
             df_model = dict(self.model)
 
             for text in self.text_set:
-                for token in text.tokenlist:
+                for word in text.wordlist_lower:
                     try:
-                        df_model[token.lower()] += 1
+                        df_model[word] += 1
                     except KeyError:
                         continue
             return df_model
 
-    def build_tf_model(self, tokenlist):
+    def build_tf_model(self, wordlist_lower):
 
         if len(self.model) == 0:
             raise ModelNotSetException
@@ -76,9 +76,9 @@ class TfIdf(Attribute):
         else:
             tf_model = dict(self.model)
 
-            for token in tokenlist:
+            for word in wordlist_lower:
                 try:
-                    tf_model[token.lower()] += 1
+                    tf_model[word] += 1
                 except KeyError:
                     continue
             return tf_model
@@ -105,4 +105,9 @@ class TfIdf(Attribute):
                 idf = (math.log10(float(self.number_of_texts) / float(df_model[word])))
                 tf_idf_model[word] = (w_tf * idf)
 
-            return collections.OrderedDict(sorted(tf_idf_model.items()))
+            return tf_idf_model
+
+            # for test_case ''' test__tf_idf__compute ''' use the OrderedDict
+            # to check the values with the tf_idf_weight in test_suitcase.resource
+            #
+            # return collections.OrderedDict(sorted(tf_idf_model.items()))
