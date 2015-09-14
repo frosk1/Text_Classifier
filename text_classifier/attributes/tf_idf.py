@@ -2,6 +2,7 @@ from text_classifier.attributes.attribute import Attribute
 from text_classifier.exceptions import ModelNotSetException
 from text_classifier.exceptions import TFModelNotSetException
 from text_classifier.exceptions import DFModelNotSetException
+from nltk.corpus import stopwords
 import math
 import collections
 
@@ -18,6 +19,7 @@ class TfIdf(Attribute):
         self._text_set = None
         self.model = {}
         self.number_of_texts = 0
+        self.stopwords = stopwords.words("german")
 
     @property
     def name(self):
@@ -48,7 +50,8 @@ class TfIdf(Attribute):
 
         for text in self._text_set:
             for word in text.wordlist_lower:
-                self.model[word] = 0
+                if word not in self.stopwords:
+                    self.model[word] = 0
 
         self.number_of_texts = len(self.text_set)
 
