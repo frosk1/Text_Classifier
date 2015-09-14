@@ -1,5 +1,5 @@
 from text_classifier.attributes.attribute import Attribute
-import re
+from nltk.corpus import stopwords
 import collections
 __author__ = 'jan'
 '''
@@ -14,6 +14,7 @@ class BagOfWords(Attribute):
         self._name = "bag_of_words"
         self._text_set = None
         self.model = {}
+        self.stopwords = stopwords.words("german")
 
     @property
     def name(self):
@@ -52,4 +53,5 @@ class BagOfWords(Attribute):
     def build_model(self):
         for text in self._text_set:
             for word in text.wordlist_lower:
-                self.model[word] = 0
+                if word not in self.stopwords:
+                    self.model[word] = 0
