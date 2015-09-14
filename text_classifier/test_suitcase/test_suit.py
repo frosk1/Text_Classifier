@@ -8,10 +8,11 @@ class TestSuits(object):
         self.test_name = test_name
         self.test_dict = {"system_test": [TextTest, TextPairTest, KorpusTest,
                                           DataTest, BagOfWordsTest, TfIdfTest, ModelTest],
-                          "attribute_test": [BagOfWordsTest, TfIdfTest],
+                          "attribute_test": [BagOfWordsTest, TfIdfTest, ReadabilityTest, VarietyTest],
                           "raw_data_test": [TextTest, KorpusTest],
                           "real_data_test": [TextPairTest, DataTest],
-                          "model_test": [ModelTest]
+                          "model_test": [ModelTest],
+                          "variety_test": [VarietyTest]
                           }
         self.test_case_list = self.test_dict.keys()
         self.test_load = unittest.TestLoader()
