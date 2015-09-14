@@ -12,6 +12,7 @@ class Variety(Attribute):
         self._name = "variety"
         self._text_set = None
         self.stopwords = stopwords.words("german")
+        self.var_count = dict()
 
     @property
     def name(self):
@@ -30,37 +31,28 @@ class Variety(Attribute):
         self._text_set = new_value
 
     def compute(self):
-        var_count = dict()
         for text in self._text_set:
-            var_count[text.id] = 0
+            self.var_count[text.id] = 0
 
             if len(text.sentencelist) > 1:
                 for i in range(len(text.sentencelist)):
-
                     try:
                         words = re.findall(r'\w+', (text.sentencelist[i] + text.sentencelist[i + 1]), re.UNICODE)
-                        c = collections.Counter(words)
-                        for x in c.keys():
-                            if x.lower() in self.stopwords:
-                                c.pop(x)
-                            else:
-                                if c[x] > 1:
-                                    var_count[text.id] += 1
-
-                        text.features["variety"] = var_count[text.id]
+                        self.count_and_filter(words, text)
 
                     except IndexError:
                         continue
-
             else:
                 words = re.findall(r'\w+', text.sentencelist[0], re.UNICODE)
-                c = collections.Counter(words)
-                for x in c.keys():
-                    if x.lower() in self.stopwords:
-                        c.pop(x)
-                    else:
-                        if c[x] > 1:
-                            var_count[text.id] += 1
+                self.count_and_filter(words, text)
 
-                text.features["variety"] = var_count[text.id]
-        print var_count
+    def count_and_filter(self, wordlist, text):
+        c = collections.Counter(wordlist)
+        for x in c.keys():
+            if x.lower() in self.stopwords:
+                c.pop(x)
+            else:
+                if c[x] > 1:
+                    self.var_count[text.id] += 1
+
+        text.features["variety"] = self.var_count[text.id]
