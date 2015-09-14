@@ -5,6 +5,7 @@ from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
 from text_classifier.model.model import Model
 from text_classifier.attributes.readability import Readability
+from text_classifier.attributes.variety_count import Variety
 import numpy as np
 import unittest
 import collections
@@ -59,7 +60,7 @@ class TestBodyData(unittest.TestCase):
         self.test_korpus.insert_from_file(self.korpus_file)
 
 
-class TestBodyAttribute1(unittest.TestCase):
+class TestBodyAttribute(unittest.TestCase):
     def setUp(self):
         self.korpus_file = res.korpus_file
         self.anno_file = res.anno_file
@@ -67,18 +68,7 @@ class TestBodyAttribute1(unittest.TestCase):
         self.test_korpus.insert_from_file(self.korpus_file)
         self.test_data = Data(self.test_korpus)
         self.test_data.add_anno(self.anno_file)
-        self.token_list = res.token_list
 
-
-class TestBodyAttribute2(unittest.TestCase):
-    def setUp(self):
-        self.korpus_file = res.korpus_file
-        self.anno_file = res.anno_file
-        self.test_korpus = Korpus("Test")
-        self.test_korpus.insert_from_file(self.korpus_file)
-        self.test_data = Data(self.test_korpus)
-        self.test_data.add_anno(self.anno_file)
-        self.readability_index = res.readability_index
 
 
 ##################################################################################################################
@@ -285,7 +275,7 @@ class DataTest(TestBodyData):
             self.assertItemsEqual(textpair.text2.features.keys(), self.feature_list)
 
 
-class BagOfWordsTest(TestBodyAttribute1):
+class BagOfWordsTest(TestBodyAttribute):
     @classmethod
     def setUpClass(cls):
         print "###################### Begin Testing BagOfWords Class ######################" + "\n"
@@ -296,6 +286,7 @@ class BagOfWordsTest(TestBodyAttribute1):
 
     def setUp(self):
         test_name = self.shortDescription()
+        self.token_list = res.token_list
         super(BagOfWordsTest, self).setUp()
 
         if test_name == "Test routine build_model() in BagOfWords":
@@ -342,7 +333,7 @@ class BagOfWordsTest(TestBodyAttribute1):
             self.assertListEqual(textpair.text2.features["bag_of_words"], self.term_freq[textpair.text2.id])
 
 
-class TfIdfTest(TestBodyAttribute1):
+class TfIdfTest(TestBodyAttribute):
     @classmethod
     def setUpClass(cls):
         print "#################### Begin Testing TfIdf Class ####################" + "\n"
@@ -356,6 +347,7 @@ class TfIdfTest(TestBodyAttribute1):
         super(TfIdfTest, self).setUp()
         self.mock_obj = TfIdf()
         self.mock_obj._text_set = self.test_data.r_D_text_set
+        self.token_list = res.token_list
         self.mock_obj.build_model()
 
         if test_name == "Test routine build_model() in TfIdf":
@@ -428,7 +420,7 @@ class TfIdfTest(TestBodyAttribute1):
             self.assertListEqual(textpair.text2.features["tf_idf"], self.tf_idf_weight[textpair.text2.id])
 
 
-class ReadabilityTest(TestBodyAttribute2):
+class ReadabilityTest(TestBodyAttribute):
     @classmethod
     def setUpClass(cls):
         print "#################### Begin Testing Readability Class ####################" + "\n"
@@ -439,6 +431,7 @@ class ReadabilityTest(TestBodyAttribute2):
 
     def setUp(self):
         test_name = self.shortDescription()
+        self.readability_index = res.readability_index
         super(ReadabilityTest, self).setUp()
 
         if test_name == "Test routine compute() in Model":
@@ -464,6 +457,45 @@ class ReadabilityTest(TestBodyAttribute2):
         """ Test routine compute() in Model """
         for text in self.test_data.r_D_text_set:
             self.assertEqual(round(text.features["readability"], 10), self.readability_index[text.id])
+
+
+class VarietyTest(TestBodyAttribute):
+    @classmethod
+    def setUpClass(cls):
+        print "#################### Begin Testing Variety Class ####################" + "\n"
+
+    @classmethod
+    def tearDownClass(cls):
+        print "\n" + "###################### End Testing Variety Class ######################"
+
+    def setUp(self):
+        test_name = self.shortDescription()
+        self.variety = res.variety_dic
+        super(VarietyTest, self).setUp()
+
+        if test_name == "Test routine compute() in Model":
+            print "setting up for testing  compute()"
+            self.mock_obj = Variety()
+            self.mock_obj._text_set = self.test_data.r_D_text_set
+            self.test_data.attach_feature("variety")
+
+    def tearDown(self):
+        test_name = self.shortDescription()
+        self.korpus_file = None
+        self.anno_file = None
+        self.test_korpus = None
+        self.test_data = None
+        self.variety = None
+
+        if test_name == "Test routine compute() in Model":
+            print "cleaning up for testing  compute()"
+            self.mock_obj = None
+            print "--------------------------------------------------------------"
+
+    def test__Readability__compute(self):
+        """ Test routine compute() in Model """
+        for text in self.test_data.r_D_text_set:
+            self.assertEqual(text.features["variety"],self.variety[text.id])
 
 
 class ModelTest(TestBodyModel):
