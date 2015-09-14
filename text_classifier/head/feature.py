@@ -3,6 +3,7 @@ from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
 from text_classifier.attributes.readability import Readability
 from text_classifier.attributes.variety_count import Variety
+from text_classifier.attributes.perfect_tense import PerfectTense
 from text_classifier.exceptions import FeatureNotExistException
 
 __author__ = 'jan'
@@ -31,6 +32,8 @@ class Feature(object):
             return attribute
         elif attribute_name == "variety":
             attribute = Variety()
+        elif attribute_name == "perfect_tense":
+            attribute = PerfectTense()
             return attribute
         else:
             raise FeatureNotExistException(attribute_name)
