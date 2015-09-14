@@ -2,7 +2,9 @@ from __builtin__ import staticmethod
 from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
 from text_classifier.attributes.readability import Readability
+from text_classifier.attributes.variety_count import Variety
 from text_classifier.exceptions import FeatureNotExistException
+
 __author__ = 'jan'
 
 
@@ -26,6 +28,9 @@ class Feature(object):
             return attribute
         elif attribute_name == "readability":
             attribute = Readability()
+            return attribute
+        elif attribute_name == "variety":
+            attribute = Variety()
             return attribute
         else:
             raise FeatureNotExistException(attribute_name)
