@@ -15,5 +15,7 @@ Set up your testing environment here.
 if __name__ == '__main__':
     system_test = TestSuits(test_name="system_test")
     attribute_test = TestSuits(test_name="attribute_test")
-    system_test.run_test()
+    variety_test = TestSuits(test_name="variety_test")
+    # system_test.run_test()
     # attribute_test.run_test()
+    variety_test.run_test()
