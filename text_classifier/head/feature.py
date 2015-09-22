@@ -8,6 +8,7 @@ from text_classifier.attributes.nested_sentence import NestedSentence
 from text_classifier.attributes.passive import Passive
 from text_classifier.attributes.adjective import Adjective
 from text_classifier.exceptions import FeatureNotExistException
+from text_classifier.attributes.sentence_start import SentenceStart
 
 __author__ = 'jan'
 
@@ -47,6 +48,9 @@ class Feature(object):
             return attribute
         elif attribute_name == "adjective":
             attribute = Adjective()
+            return attribute
+        elif attribute_name == "sentence_start":
+            attribute = SentenceStart()
             return attribute
         else:
             raise FeatureNotExistException(attribute_name)
