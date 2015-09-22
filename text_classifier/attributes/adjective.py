@@ -34,6 +34,7 @@ class Adjective(Attribute):
 
     def count_adj(self, tag_list):
         count = 0
+
         for tuple_tag in tag_list:
             if tuple_tag[1] in self.adj_tag_list:
                 count += 1
