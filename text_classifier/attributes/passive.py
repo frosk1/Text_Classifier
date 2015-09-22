@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from text_classifier.parzu import *
-import attribute
+from text_classifier.attributes.attribute import Attribute
 __author__ = 'jan'
 
 
-class Passive(attribute.Attribute):
+class Passive(Attribute):
 
     def __init__(self):
         self._name = "passive"
