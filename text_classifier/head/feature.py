@@ -6,6 +6,7 @@ from text_classifier.attributes.variety_count import Variety
 from text_classifier.attributes.perfect_tense import PerfectTense
 from text_classifier.attributes.nested_sentence import NestedSentence
 from text_classifier.attributes.passive import Passive
+from text_classifier.attributes.adjective import Adjective
 from text_classifier.exceptions import FeatureNotExistException
 
 __author__ = 'jan'
@@ -43,6 +44,9 @@ class Feature(object):
             return attribute
         elif attribute_name == "passive":
             attribute = Passive()
+            return attribute
+        elif attribute_name == "adjective":
+            attribute = Adjective()
             return attribute
         else:
             raise FeatureNotExistException(attribute_name)

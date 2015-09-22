@@ -20,7 +20,7 @@ class Data(object):
         self.r_D_text_set = set()
         self.real_data_size = 0
         self.feature_list = ["bag_of_words", "tf_idf", "readability", "variety", "perfect_tense", "nested_sentence",
-                             "passive"]
+                             "passive", "adjective"]
 
     def __str__(self):
         return "Korpus: " + "'" + self.raw_data.name + "'" + ", mit " + str(self.raw_data.size) + " Texten" + \
