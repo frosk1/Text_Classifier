@@ -46,7 +46,7 @@ class PerfectTense(Attribute):
                 s2 = pattern.group(2)
                 pattern2 = re.search(".*" + s1 + "#(\d+).*" + s2 + "#(\d+).*", analyses)
                 if pattern2:
-                    if int(pattern2.group(2))-int(pattern2.group(1)) > 3:
+                    if int(pattern2.group(2)) - int(pattern2.group(1)) > 3:
                         perf_count += 1
 
         return perf_count
