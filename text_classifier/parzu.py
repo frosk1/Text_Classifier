@@ -37,6 +37,7 @@ def fill_analyses_dict(id_len_tuples, analyses_list):
     for tupl in id_len_tuples:
         text_id = tupl[0]
         length = tupl[1]
+        # -1 +1 = 0 xD
         end = start + (length - 1) + 1
         tmp_list = []
 
