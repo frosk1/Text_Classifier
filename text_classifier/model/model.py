@@ -8,6 +8,7 @@ from sklearn.neighbors import RadiusNeighborsClassifier
 from sklearn.cross_validation import KFold
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
+from sklearn.svm.libsvm import predict
 from text_classifier.exceptions import ClassifierNotExistException
 from text_classifier.exceptions import EmptyFeaturesEmptyTargetsException
 from text_classifier.exceptions import NoClassifierException
@@ -140,11 +141,22 @@ class Model(object):
             raise EmptyFeaturesEmptyTargetsException
 
         else:
-            count = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
-            count2 = len(self.targets) - count
-
             # sollte auf 100 % /fraction trainiert werden, wird auch auf 100% getestet
-            # wenn count2 0 ist (bei 100% count), dann wird self.targets[-count2:] zu self.targets[:]
-            self.clf.fit(self.feature_samples[:count], self.targets[:count])
-            predicted = self.clf.predict(self.feature_samples[-count2:])
-            print(metrics.classification_report(self.targets[-count2:], predicted, target_names=["0", "1"]))
+            # wenn count_predict 0 ist (bei 100% count_train), dann wird self.targets[-count_predict:] zu self.targets[:]
+
+            count_train = int(round((float(len(self.targets)) / float(100)) * float(fraction), 0))
+            count_predict = len(self.targets) - count_train
+            print "count_train:", count_train
+            print "count_predict:", count_predict
+
+            train_samples = self.feature_samples[:count_train]
+            train_targets = self.targets[:count_train]
+            test_samples = self.feature_samples[-count_predict:]
+            test_targets = self.targets[-count_predict:]
+
+            self.clf.fit(train_samples, train_targets)
+            test_targets_predicted = self.clf.predict(test_samples)
+            print "model: ", test_targets_predicted
+            print "target: ", test_targets
+            print(metrics.classification_report(test_targets, test_targets_predicted, target_names=["0", "1"]))
+            print "accuracy_score: ", accuracy_score(test_targets, test_targets_predicted)
