@@ -40,6 +40,8 @@ class SentenceStart(Attribute):
                     continue
 
             text.features["sentence_start"] = [self.count_lemma(), self.count_tag()]
+            self.tuple_list_tag = []
+            self.tuple_list_lemma = []
 
     def count_lemma(self):
         count_lemma = 0
