@@ -1,3 +1,6 @@
+import collections
+import re
+from text_classifier.head.data import summarize
 import numpy as np
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
@@ -13,7 +16,6 @@ from text_classifier.exceptions import ClassifierNotExistException
 from text_classifier.exceptions import EmptyFeaturesEmptyTargetsException
 from text_classifier.exceptions import NoClassifierException
 from text_classifier.exceptions import FoldSizeToBigException
-
 __author__ = 'jan'
 
 '''
@@ -148,6 +150,7 @@ class Model(object):
             count_predict = len(self.targets) - count_train
             print "count_train:", count_train
             print "count_predict:", count_predict
+            summarize(self.data.real_data.values()[-count_predict:])
 
             train_samples = self.feature_samples[:count_train]
             train_targets = self.targets[:count_train]
@@ -156,7 +159,6 @@ class Model(object):
 
             self.clf.fit(train_samples, train_targets)
             test_targets_predicted = self.clf.predict(test_samples)
-            print "model: ", test_targets_predicted
-            print "target: ", test_targets
+
             print(metrics.classification_report(test_targets, test_targets_predicted, target_names=["0", "1"]))
             print "accuracy_score: ", accuracy_score(test_targets, test_targets_predicted)
