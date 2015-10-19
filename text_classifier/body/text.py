@@ -18,9 +18,10 @@ class Text(object):
     Constructor
     """
 
-    def __init__(self, text_id, text_string):
+    def __init__(self, text_id, category, text_string):
         self.text = text_string
         self.id = text_id
+        self.category = category
         self.tokenlist = wordpunct_tokenize(self.text.decode("utf8"))
         self.sentencelist = sent_tokenize(self.text.decode("utf-8"))
         self.wordlist = self.set_wordlist()
