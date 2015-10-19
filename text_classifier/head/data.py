@@ -1,8 +1,10 @@
+from text_classifier.body.text import Text
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.feature import Feature
 from text_classifier.exceptions import WrongKorpusFileFormatException
 from text_classifier.exceptions import NoAnnotationException
 import re
+import collections
 
 __author__ = 'jan'
 
@@ -72,3 +74,37 @@ class Data(object):
             raise NoAnnotationException(self.raw_data.name)
         else:
             Feature.add_attribute_list(feature_list, self.r_D_text_set)
+
+
+#####################################################
+# Analyze Data
+####################################################
+
+def summarize(data_set):
+    text_category_list = []
+    for obj in data_set:
+        if type(obj) is TextPair:
+            text_category_list.append(obj.text1.category)
+            text_category_list.append(obj.text2.category)
+        elif type(obj) is Text:
+            text_category_list.append(obj.category)
+        else:
+            print "wrong data_input"
+
+    printer(collections.Counter(text_category_list))
+
+
+def printer(counter_dic):
+    counter_dic["Anno_Texts"] = 0
+    for i in counter_dic.keys():
+        counter_dic["Anno_Texts"] += counter_dic[i]
+    counter_dic["auto_gesamt"] = counter_dic["auto_gut"] + counter_dic["auto_schlecht"]
+    print "----------------------------------"
+    print "Overall_Anno_Texts: ", counter_dic["Anno_Texts"]
+    print "----------------------------------"
+    for i in counter_dic.keys():
+        if i == "Anno_Texts":
+            continue
+        else:
+            print i, ": ", counter_dic[i], ";", round(float(counter_dic[i]) / (float(counter_dic["Anno_Texts"]) / 100), 2), "%"
+    print "----------------------------------"
