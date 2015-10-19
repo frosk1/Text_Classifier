@@ -34,16 +34,12 @@ class Korpus(object):
     def insert_from_file(self, file_name):
         with open(file_name, "r") as f:
             for line in f.readlines():
-                pattern = re.search("(\d+)\t\t(.*)", line)
-                if pattern is not None and len(pattern.groups()) == 2:
-                    text = Text(int(pattern.group(1)), pattern.group(2))
+                pattern = re.search("(\d+)\t(\w+)\t(.*)", line)
+                if pattern is not None and len(pattern.groups()) == 3:
+                    text = Text(int(pattern.group(1)), pattern.group(2), pattern.group(3))
                     self.content[int(pattern.group(1))] = text
                 else:
                     raise WrongKorpusFileFormatException(file_name)
 
         self.size = len(self.content)
         f.close()
-
-
-
-
