@@ -13,7 +13,7 @@ from text_classifier.exceptions import ClassifierNotExistException
 from text_classifier.exceptions import EmptyFeaturesEmptyTargetsException
 from text_classifier.exceptions import NoClassifierException
 from text_classifier.exceptions import FoldSizeToBigException
-from text_classifier.head.data import Data, summarize_text
+from text_classifier.head.data import Data, summarize_text, summarize_textpair
 
 __author__ = 'jan'
 
@@ -37,26 +37,32 @@ class Model(object):
         self.__train_data_set = False
 
     def set_train_data(self, data_name):
+        data_in_list = False
         for data in self.data_list:
             if data.name == data_name:
                 print data_name + " is in model_data_list "
                 self.train_data = data
                 self.train_samples, self.train_targets = self.fill_feature_target(data)
-            else:
-                print data_name + " not in model_data_list "
-        self.__train_data_set = True
+                data_in_list = True
+        if data_in_list:
+            self.__train_data_set = True
+        else:
+            print data_name + " not in model_data_list "
 
     def set_test_data(self, data_name):
         if self.__train_data_set and self.train_data.name == data_name:
             self.test_data = self.train_data
             print "train_data and test_data from one data_set"
         else:
+            data_in_list = False
             for data in self.data_list:
                 if data.name == data_name:
+                    print data_name + " is in model_data_list "
                     self.test_data = data
                     self.test_samples, self.test_targets = self.fill_feature_target(data)
-                else:
-                    print data_name + " not in model_data_list "
+                    data_in_list = True
+            if not data_in_list:
+                print data_name + " not in model_data_list "
 
     # def fill_data(self, data, data_list):
     #     if type(data) is None and type(data_list) is None:
@@ -226,7 +232,7 @@ class Model(object):
                 print "count_train:", count_train
                 print "count_predict:", len(self.test_targets)
                 print "test_data summarize"
-                summarize_text(self.test_data.real_data.values())
+                summarize_textpair(self.test_data.real_data.values())
 
                 train_samples = self.train_samples[:count_train]
                 train_targets = self.train_targets[:count_train]
