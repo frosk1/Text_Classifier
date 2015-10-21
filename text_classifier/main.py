@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
+import language_check
+import enchant
+from enchant.checker import SpellChecker
 import text_classifier.test_suitcase.resource as res
 import codecs
+import nltk
 import collections
+from nltk.corpus import stopwords
+from text_classifier.head.data import summarize_text
+from text_classifier.head.data import summarize_textpair
 from time import time
 from text_classifier.body.text import Text
 from text_classifier.body.korpus import Korpus
@@ -35,71 +42,88 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import DictVectorizer
 from text_classifier.attributes.bag_of_words import BagOfWords#
 import re
+import text_classifier.test_suitcase.resource as res
 import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm, datasets
 __author__ = 'jan'
 
+
 def main():
 
-
-    text_1 = Text(1, "Tim mag viele tolle sachen,)%$.")
-    text_2 = Text(2, "Hallo heute ist ein schoener tag")
+    text_1 = Text(1, "auto_gut", "Tim mag viele tolle sachen,)%$.")
+    text_2 = Text(2, "auto_schlecht", "Hallo heute ist ein schoener tag")
     file = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell.txt"
+    file_marked = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell_marked.txt"
+    file_test = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_korpus3.txt"
+    file_test2 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation3.txt"
+    file1 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_korpus.txt"
     file2 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation.txt"
     file3 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_regular_equal_Jan_Mel.txt"
     file4 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Jan.txt"
     file5 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Mel.txt"
     file6 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_80.txt"
+    file7 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_20.txt"
+    file8 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_100.txt"
 
+    auto_sample_file = "/home/jan/Development/Korpus/ZA/sampling_anno.txt"
+    auto_sample_file_10k = "/home/jan/Development/Korpus/ZA/sampling_anno_10k.txt"
 
 
     k1 = Korpus("Test")
-    k1.insert_from_file(file)
+    k1.insert_from_file(file_marked)
+    # k2 = Korpus("Test2")
+    # k2.insert_from_file(file_marked)
     #print k1.size
     #print text_1
     #print k1.get_text(50)
     #print k1.get_text(50).get_tokenlist()
     #pair1 = TextPair(text_1, text_2, 1)
     #print pair1
-    data1 = Data(k1)
-    data1.add_anno(file2)
+    data1 = Data("evaluation", k1)
+    data1.add_anno(file6)
+
+    data2 = Data("auto_sample", k1)
+    data2.add_anno(auto_sample_file_10k)
+
+    datas = [data1,data2]
+    # summarize_text(data1.real_data.values())
+    # summarize_textpair(data1.real_data.values())
+
     #print data1.real_data_size
     #print data1
-    #data1.attach_feature("standard_attribute")
-    #data1.attach_feature("bag_of_words")
-    data1.attach_feature("readability")
 
-    #feature_list = ["bag_of_words", "tf_idf"]
-    #data1.attach_feature_list(feature_list)
-    #data1.attach_feature("tf_idf")
+    # data1.attach_feature("test_attribute")
+    # data1.attach_feature("bag_of_words")
+    # data1.attach_feature("tf_idf")
+    # data1.attach_feature("readability")
+    # data1.attach_feature("variety")
+    # data1.attach_feature("perfect_tense")
+    # data1.attach_feature("passive")
+    # data1.attach_feature("adjective")
+    # data1.attach_feature("sentence_start")
+    # data1.attach_feature("nested_sentence")
 
-    #for i in data1.real_data.values():
-    #    print i.text1.features
-    #    print i.text2.features
-    # print data1.real_data.values()[1].text1.features
-    # print data1.real_data.values()[1].text2.features
-    # data1.real_data.values()[0].text1.vectorize()
-    # print data1.real_data.values()[0].text1.feature_vector
-    #print data1.real_data.values()[0].text1.tokenlist
-    #print data1.real_data.values()[1].text2.tokenlist
+    # data2.attach_feature("adjective")
+    # data2.attach_feature("variety")
+    data2.attach_feature("bag_of_words")
+    # data2.attach_feature("tf_idf")
 
-
-    #data1.real_data.values()[0].text1.vectorize()
-    #data1.real_data.values()[0].text2.vectorize()
-    #print(data1.real_data.values()[0].text1.feature_vector)
-    #print(data1.real_data.values()[0].text2.feature_vector)
-    #(data1.real_data.values()[0].vectorize())
-    #print(data1.real_data.values()[0].feature_vector)
-    #for i in data1.real_data.values():
-     #   print i
-
-    #print data1.real_data
-    model1 = Model(data1)
+    model1 = Model(data_list=datas)
     model1.set_classifier("svm_linear")
-    #model1.train(80)
-    #model1.set_classifier("svm_polyr")
+    model1.set_train_data(data2.name)
+    model1.set_test_data(data1.name)
+    model1.evaluate_classification_report(80)
+    # model1.train(100)
+    # model2 = Model(data2)
+    # print len(model2.feature_samples)
+    # print len(model2.targets)
+    # test_targets_predicted = model1.clf.predict(model2.feature_samples)
+    # print(metrics.classification_report(model2.targets, test_targets_predicted, target_names=["0", "1"]))
+
+
+    # model1.set_classifier("svm_polyr")
     #model1.train(80)
     #model1.predict(model1.feature_samples[-1])
     #model1.clf = SGDClassifier()
@@ -111,10 +135,33 @@ def main():
     #model1.set_classifier("nearest_centroid")
     #model1.set_classifier("k_neighbors")
     #model1.set_classifier("radius_neighbors")
-    #y = model1.evaluate_classification_report(80)
-    x = model1.evaluate_cross_validation(10)
-    print x[0]
-    print x[1]
+
+    # x = model1.evaluate_cross_validation(10)
+    # print x[0]
+    # print x[1]
+    # model1.evaluate_classification_report(80)
+    # for i in range(len(model1.feature_samples)):
+    #     print model1.data.real_data.values()[i].name, model1.targets[i], model1.feature_samples[i]
+    # for textpair in model1.data.real_data.values():
+    #     print textpair.name, textpair.target, int(textpair.text1.id) - int(textpair.text2.id)
+
+    #####################################################################
+    ####################################################################
+    # list = ["der","der","mann","mann","mann","eins"]
+    # c = collections.Counter(list)
+    # #print c
+    # test_dic = {"der":0 ,"mann": 0, "eins":0,"müll":0}
+    # c2 = collections.Counter(test_dic)
+    # for word in list:
+    #     c2[word] += 1
+    # print c2.items()
+    # print c2.values()
+
+
+
+
+
+
     #
     # print y
     #
@@ -206,3 +253,6 @@ if __name__ == '__main__':
     main()
     y = time()
     print "Time needed :", y-x, "sec"
+
+
+

@@ -24,10 +24,14 @@ Interface for communication between data and attributes
 
 class Feature(object):
 
-    @staticmethod
-    def init_attribute(attribute_name):
+    def __init__(self, name=None, name_list=None, bow_model=None):
+        self.name = name
+        self.name_list = name_list
+        self.bow_model = bow_model
+
+    def init_attribute(self, attribute_name):
         if attribute_name == "bag_of_words":
-            attribute = BagOfWords()
+            attribute = BagOfWords(self.bow_model)
             return attribute
         elif attribute_name == "tf_idf":
             attribute = TfIdf()
@@ -59,13 +63,12 @@ class Feature(object):
         else:
             raise FeatureNotExistException(attribute_name)
 
-    @staticmethod
-    def add_attribute(attribute_name, text_set):
-        attribute = Feature.init_attribute(attribute_name)
+    def add_attribute(self, text_set):
+        attribute = self.init_attribute(self.name)
         attribute._text_set = text_set
         attribute.compute()
 
-    @staticmethod
-    def add_attribute_list(attribute_list, text_set):
-        for att_name in attribute_list:
-            Feature.add_attribute(att_name, text_set)
+    def add_attribute_list(self, text_set):
+        for att_name in self.name_list:
+            self.name = att_name
+            self.add_attribute(text_set)

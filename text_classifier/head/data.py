@@ -16,13 +16,16 @@ Class Data :
 
 
 class Data(object):
-    def __init__(self, raw_data):
+    def __init__(self, name, raw_data):
+        self.name = name
         self.raw_data = raw_data
         self.real_data = {}
         self.r_D_text_set = set()
         self.real_data_size = 0
+        self.features_fit = []
         self.feature_list = ["bag_of_words", "tf_idf", "readability", "variety", "perfect_tense",
                              "passive", "adjective", "sentence_start","test_attribute"]
+        self.bow_model = None
 
     def __str__(self):
         return "Korpus: " + "'" + self.raw_data.name + "'" + ", mit " + str(self.raw_data.size) + " Texten" + \
@@ -61,8 +64,13 @@ class Data(object):
 
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
+        elif feature_name == "bag_of_words":
+            feature = Feature(name=feature_name, bow_model=self.bow_model)
+            feature.add_attribute(self.r_D_text_set)
         else:
-            Feature.add_attribute(feature_name, self.r_D_text_set)
+            feature = Feature(name=feature_name)
+            feature.add_attribute(self.r_D_text_set)
+            self.features_fit.append(feature_name)
 
     def attach_feature_list(self, feature_list):
         """
@@ -73,14 +81,18 @@ class Data(object):
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
         else:
-            Feature.add_attribute_list(feature_list, self.r_D_text_set)
+            feature = Feature(name_list=feature_list)
+            feature.add_attribute_list(self.r_D_text_set)
+
+            for feature_name in feature_list:
+                self.features_fit.append(feature_name)
 
 
 #####################################################
 # Analyze Data
 ####################################################
 
-def summarize(data_set):
+def summarize_text(data_set):
     text_category_list = []
     for obj in data_set:
         if type(obj) is TextPair:
@@ -90,21 +102,77 @@ def summarize(data_set):
             text_category_list.append(obj.category)
         else:
             print "wrong data_input"
-
+    print "----------------Text--------------"
     printer(collections.Counter(text_category_list))
 
 
+def summarize_textpair(data_set):
+    text_selected_list = []
+    for textpair in data_set:
+        # text_selected_list.append(select_anno(textpair))
+        # print textpair.text1.category, "---", textpair.text2.category
+        #######################
+        #### Auto-Schlecht ####
+        #######################
+        if textpair.text1.category == "man" and textpair.text2.category == "auto_schlecht":
+            text_selected_list.append(select_anno(textpair))
+        if textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_schlecht":
+            text_selected_list.append(select_anno(textpair))
+        if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "man":
+            text_selected_list.append(select_anno(textpair))
+        if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_gut":
+            text_selected_list.append(select_anno(textpair))
+
+        #######################
+        #### Auto-Man-All #########
+        #######################
+        # if textpair.text1.category == "man" and textpair.text2.category == "auto_schlecht":
+        #     text_selected_list.append(select_anno(textpair))
+        # elif textpair.text1.category == "man" and textpair.text2.category == "auto_gut":
+        #     text_selected_list.append(select_anno(textpair))
+        # elif textpair.text1.category == "auto_schlecht" and textpair.text2.category == "man":
+        #     text_selected_list.append(select_anno(textpair))
+        # elif textpair.text1.category == "auto_gut" and textpair.text2.category == "man":
+        #     text_selected_list.append(select_anno(textpair))
+
+        #######################
+        #### Auto-All #########
+        #######################
+        # if textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_schlecht":
+        #     text_selected_list.append(select_anno(textpair))
+        # elif textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_gut":
+        #     text_selected_list.append(select_anno(textpair))
+
+        ###########################
+        #### Auto_gut-Man #########
+        ###########################
+        # if textpair.text1.category == "man" and textpair.text2.category == "auto_gut":
+        #     text_selected_list.append(select_anno(textpair))
+        # elif textpair.text1.category == "auto_gut" and textpair.text2.category == "man":
+        #     text_selected_list.append(select_anno(textpair))
+
+    print "-------------Textpair-------------"
+    printer(collections.Counter(text_selected_list))
+
+
+def select_anno(textpair):
+    if textpair.target == 0:
+        return textpair.text1.category
+    else:
+        return textpair.text2.category
+
+
 def printer(counter_dic):
-    counter_dic["Anno_Texts"] = 0
+    counter_dic["Overall"] = 0
     for i in counter_dic.keys():
-        counter_dic["Anno_Texts"] += counter_dic[i]
+        counter_dic["Overall"] += counter_dic[i]
     counter_dic["auto_gesamt"] = counter_dic["auto_gut"] + counter_dic["auto_schlecht"]
     print "----------------------------------"
-    print "Overall_Anno_Texts: ", counter_dic["Anno_Texts"]
+    print "Overall: ", counter_dic["Overall"]
     print "----------------------------------"
     for i in counter_dic.keys():
-        if i == "Anno_Texts":
+        if i == "Overall":
             continue
         else:
-            print i, ": ", counter_dic[i], ";", round(float(counter_dic[i]) / (float(counter_dic["Anno_Texts"]) / 100), 2), "%"
+            print i, ": ", counter_dic[i], ";", round(float(counter_dic[i]) / (float(counter_dic["Overall"]) / 100), 2), "%"
     print "----------------------------------"
