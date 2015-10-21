@@ -43,6 +43,7 @@ class Model(object):
                 print data_name + " is in model_data_list "
                 self.train_data = data
                 self.train_samples, self.train_targets = self.fill_feature_target(data)
+                print data_name + " is set as train_data"
                 data_in_list = True
         if data_in_list:
             self.__train_data_set = True
@@ -53,14 +54,17 @@ class Model(object):
         if self.__train_data_set and self.train_data.name == data_name:
             self.test_data = self.train_data
             print "train_data and test_data from one data_set"
+        elif not self.__train_data_set:
+            print "please set train_data first"
         else:
             data_in_list = False
             for data in self.data_list:
                 if data.name == data_name:
-                    print data_name + " is in model_data_list "
+                    print data_name + " is in model_data_list"
                     self.test_data = data
                     self.test_samples, self.test_targets = self.fill_feature_target(data)
                     data_in_list = True
+                    print data_name + " is set as train_data"
             if not data_in_list:
                 print data_name + " not in model_data_list "
 
@@ -86,6 +90,8 @@ class Model(object):
             for feature in self.train_data.features_fit:
                 if feature == "bag_of_words":
                     data.bow_model = self.train_data.bow_model
+
+            print self.train_data.features_fit
             data.attach_feature_list(self.train_data.features_fit)
 
             for textpair in data.real_data.values():
@@ -95,7 +101,6 @@ class Model(object):
 
             return np.array(sample_list), np.array(target_list)
         else:
-
             for textpair in data.real_data.values():
                 textpair.vectorize()
                 target_list.append(textpair.target)
