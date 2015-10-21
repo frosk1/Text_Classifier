@@ -40,8 +40,10 @@ class BagOfWords(Attribute):
         c = 0
 
         if self.bow_model is not None:
+            print "BOW not None"
             vectorizer = self.bow_model
             X = vectorizer.transform(self.sentence_list)
+            # print vectorizer.get_feature_names()
             A = X.toarray()
             for text in self._text_set:
                 end_list = []
@@ -51,6 +53,7 @@ class BagOfWords(Attribute):
                 text.features["bag_of_words"] = end_list
                 c += 1
         else:
+            print "BOW is None"
             vectorizer = CountVectorizer(min_df=1)
             X = vectorizer.fit_transform(self.sentence_list)
             # print vectorizer.get_feature_names()
