@@ -67,6 +67,8 @@ class Feature(object):
         attribute = self.init_attribute(self.name)
         attribute._text_set = text_set
         attribute.compute()
+        if self.name == "bag_of_words":
+            self.bow_model = attribute.bow_model
 
     def add_attribute_list(self, text_set):
         for att_name in self.name_list:
