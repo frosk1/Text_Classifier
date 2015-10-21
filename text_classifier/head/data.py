@@ -64,12 +64,10 @@ class Data(object):
 
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
-        elif feature_name == "bag_of_words":
+        else:
             feature = Feature(name=feature_name, bow_model=self.bow_model)
             feature.add_attribute(self.r_D_text_set)
-        else:
-            feature = Feature(name=feature_name)
-            feature.add_attribute(self.r_D_text_set)
+            self.bow_model = feature.bow_model
             self.features_fit.append(feature_name)
 
     def attach_feature_list(self, feature_list):
@@ -81,12 +79,12 @@ class Data(object):
         if self.real_data_size == 0:
             raise NoAnnotationException(self.raw_data.name)
         else:
-            feature = Feature(name_list=feature_list)
+            feature = Feature(name_list=feature_list, bow_model=self.bow_model)
             feature.add_attribute_list(self.r_D_text_set)
+            self.bow_model = feature.bow_model
 
             for feature_name in feature_list:
                 self.features_fit.append(feature_name)
-
 
 #####################################################
 # Analyze Data
@@ -109,19 +107,19 @@ def summarize_text(data_set):
 def summarize_textpair(data_set):
     text_selected_list = []
     for textpair in data_set:
-        # text_selected_list.append(select_anno(textpair))
+        text_selected_list.append(select_anno(textpair))
         # print textpair.text1.category, "---", textpair.text2.category
         #######################
         #### Auto-Schlecht ####
         #######################
-        if textpair.text1.category == "man" and textpair.text2.category == "auto_schlecht":
-            text_selected_list.append(select_anno(textpair))
-        if textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_schlecht":
-            text_selected_list.append(select_anno(textpair))
-        if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "man":
-            text_selected_list.append(select_anno(textpair))
-        if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_gut":
-            text_selected_list.append(select_anno(textpair))
+        # if textpair.text1.category == "man" and textpair.text2.category == "auto_schlecht":
+        #     text_selected_list.append(select_anno(textpair))
+        # if textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_schlecht":
+        #     text_selected_list.append(select_anno(textpair))
+        # if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "man":
+        #     text_selected_list.append(select_anno(textpair))
+        # if textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_gut":
+        #     text_selected_list.append(select_anno(textpair))
 
         #######################
         #### Auto-Man-All #########
