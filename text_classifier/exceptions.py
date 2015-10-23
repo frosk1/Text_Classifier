@@ -53,11 +53,12 @@ class UnequalSizeException(Exception):
 
 class WrongAnnoFileFormatException(Exception):
 
-    def __init__(self, anno_file):
-        self.anno_file = anno_file
+    def __init__(self, korpus_file, line):
+        self.korpus_file = korpus_file
+        self.line = line
 
     def __str__(self):
-        return "Invalid Format in Annotations-File: " + self.anno_file
+        return "Invalid Format in Korpus-File: " + self.korpus_file + "line is: " + self.line
 
 
 class WrongKorpusFileFormatException(Exception):
