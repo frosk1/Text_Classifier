@@ -1,7 +1,7 @@
 from text_classifier.body.text import Text
 from text_classifier.body.textpair import TextPair
 from text_classifier.head.feature import Feature
-from text_classifier.exceptions import WrongKorpusFileFormatException
+from text_classifier.exceptions import WrongAnnoFileFormatException
 from text_classifier.exceptions import NoAnnotationException
 import re
 import collections
@@ -47,7 +47,7 @@ class Data(object):
 
                     self.real_data[textpair.name] = textpair
                 else:
-                    raise WrongKorpusFileFormatException(anno_file)
+                    raise WrongAnnoFileFormatException(anno_file, line)
         self.real_data_size = len(self.real_data)
         f.close()
 
@@ -106,8 +106,14 @@ def summarize_text(data_set):
 
 def summarize_textpair(data_set):
     text_selected_list = []
+    count_man_autos = 0
+    count_man_autog = 0
+    count_autos_autos = 0
+    count_autog_autog = 0
+    count_man_man = 0
+    count_autos_autog = 0
     for textpair in data_set:
-        text_selected_list.append(select_anno(textpair))
+        # text_selected_list.append(select_anno(textpair))
         # print textpair.text1.category, "---", textpair.text2.category
         #######################
         #### Auto-Schlecht ####
@@ -148,6 +154,54 @@ def summarize_textpair(data_set):
         #     text_selected_list.append(select_anno(textpair))
         # elif textpair.text1.category == "auto_gut" and textpair.text2.category == "man":
         #     text_selected_list.append(select_anno(textpair))
+        ###########################
+        #### Man-All #########
+        ###########################
+        # if textpair.text1.category == "man" and textpair.text2.category == "man":
+        #     text_selected_list.append(select_anno(textpair))
+
+        ### all ###
+        if textpair.text1.category == "man" and textpair.text2.category == "auto_schlecht":
+            text_selected_list.append(select_anno(textpair))
+            count_man_autos += 1
+        elif textpair.text1.category == "man" and textpair.text2.category == "auto_gut":
+            text_selected_list.append(select_anno(textpair))
+            count_man_autog += 1
+        elif textpair.text1.category == "man" and textpair.text2.category == "man":
+            text_selected_list.append(select_anno(textpair))
+            count_man_man += 1
+        elif textpair.text1.category == "auto_schlecht" and textpair.text2.category == "man":
+            text_selected_list.append(select_anno(textpair))
+            count_man_autos += 1
+        elif textpair.text1.category == "auto_gut" and textpair.text2.category == "man":
+            text_selected_list.append(select_anno(textpair))
+            count_man_autog += 1
+        elif textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_gut":
+            text_selected_list.append(select_anno(textpair))
+            count_autos_autog += 1
+        elif textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_schlecht":
+            text_selected_list.append(select_anno(textpair))
+            count_autos_autog += 1
+        elif textpair.text1.category == "auto_schlecht" and textpair.text2.category == "auto_schlecht":
+            text_selected_list.append(select_anno(textpair))
+            count_autos_autos += 1
+        elif textpair.text1.category == "auto_gut" and textpair.text2.category == "auto_gut":
+            text_selected_list.append(select_anno(textpair))
+            count_autog_autog += 1
+
+
+    print "manull-auto_schlecht paare:", count_man_autos
+    print "manull-auto_gut paare:", count_man_autog
+    print "auto_schlecht-auto_schlecht paare:", count_autos_autos
+    print "auto_gut-auto_gut paare:", count_autog_autog
+    print "man-man paare:", count_man_man
+    print "auto_schlecht_auto_gut paare", count_autos_autog
+
+    print "auto", count_autos_autos+count_autos_autog+ count_man_autos+count_man_autos+ count_autog_autog
+    print "man", count_man_autos+count_man_autos + count_man_man
+    print "overall:", count_autos_autos+count_autos_autog+ count_man_autos+count_man_autog+ count_autog_autog+ count_man_man
+
+
 
     print "-------------Textpair-------------"
     printer(collections.Counter(text_selected_list))
