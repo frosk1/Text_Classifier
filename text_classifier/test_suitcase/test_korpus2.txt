@@ -1,3 +1,4 @@
-1		Hallo Herr Freitag.
-2		Wie geht es freitag?
-3		Super geht es Hallo!
+1	auto_schlecht	Hallo Herr Freitag.
+2	man	Wie geht es freitag?
+3	auto_gut	Die Super geht es Hallo!
+4	auto_gut	Es ist schön.
