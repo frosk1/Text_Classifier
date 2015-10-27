@@ -236,7 +236,7 @@ class Model(object):
                 count_train = int(round((float(len(self.train_targets)) / float(100)) * float(fraction), 0))
                 print "count_train:", count_train
                 print "count_predict:", len(self.test_targets)
-                print "test_data summarize"
+                print "##########test_data summarize##########"
                 summarize_textpair(self.test_data.real_data.values())
 
                 train_samples = self.train_samples[:count_train]
