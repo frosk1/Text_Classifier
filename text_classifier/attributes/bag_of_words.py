@@ -36,8 +36,6 @@ class BagOfWords(Attribute):
         self._text_set = new_value
 
     def compute(self):
-        self.build_model()
-        # c = 0
 
         if self.bow_model is not None:
             print "BOW not None"
