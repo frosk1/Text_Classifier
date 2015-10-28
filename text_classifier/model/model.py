@@ -88,7 +88,7 @@ class Model(object):
 
         if self.__train_data_set:
             for feature in self.train_data.features_fit:
-                if feature == "bag_of_words":
+                if feature == "bag_of_words" or feature == "bag_of_pos":
                     data.bow_model = self.train_data.bow_model
 
             print self.train_data.features_fit
