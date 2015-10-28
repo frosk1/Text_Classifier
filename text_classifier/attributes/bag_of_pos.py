@@ -7,7 +7,7 @@ __author__ = 'jan'
 class BagOfPos(Attribute):
 
     def __init__(self, bow_model):
-        self._name = "test_attribute"
+        self._name = "bag_of_pos"
         self._text_set = None
         self.tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
         self.model = {}

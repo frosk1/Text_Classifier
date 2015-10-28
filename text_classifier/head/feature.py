@@ -9,6 +9,7 @@ from text_classifier.attributes.passive import Passive
 from text_classifier.attributes.adjective import Adjective
 from text_classifier.exceptions import FeatureNotExistException
 from text_classifier.attributes.bag_of_pos import BagOfPos
+from text_classifier.attributes.modal import ModalVerb
 from text_classifier.attributes.sentence_start import SentenceStart
 
 __author__ = 'jan'
@@ -28,7 +29,6 @@ class Feature(object):
         self.name = name
         self.name_list = name_list
         self.bow_model = bow_model
-
 
     def init_attribute(self, attribute_name):
         if attribute_name == "bag_of_words":
@@ -61,6 +61,9 @@ class Feature(object):
         elif attribute_name == "bag_of_pos":
             attribute = BagOfPos(self.bow_model)
             return attribute
+        elif attribute_name == "modal_verb":
+            attribute = ModalVerb()
+            return attribute
         else:
             raise FeatureNotExistException(attribute_name)
 
@@ -68,7 +71,7 @@ class Feature(object):
         attribute = self.init_attribute(self.name)
         attribute._text_set = text_set
         attribute.compute()
-        if self.name == "bag_of_words" or "bag_of_pos":
+        if self.name == "bag_of_words" or self.name == "bag_of_pos":
             self.bow_model = attribute.bow_model
 
     def add_attribute_list(self, text_set):
