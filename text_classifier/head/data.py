@@ -24,7 +24,7 @@ class Data(object):
         self.real_data_size = 0
         self.features_fit = []
         self.feature_list = ["bag_of_words", "tf_idf", "readability", "variety", "perfect_tense",
-                             "passive", "adjective", "sentence_start","test_attribute"]
+                             "passive", "adjective", "sentence_start","bag_of_pos"]
         self.bow_model = None
 
     def __str__(self):
