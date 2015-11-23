@@ -1,3 +1,6 @@
+print(__doc__)
+
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
@@ -14,7 +17,9 @@ from text_classifier.exceptions import EmptyFeaturesEmptyTargetsException
 from text_classifier.exceptions import NoClassifierException
 from text_classifier.exceptions import FoldSizeToBigException
 from text_classifier.head.data import Data, summarize_text, summarize_textpair
-
+from sklearn.metrics import recall_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import precision_recall_fscore_support
 __author__ = 'jan'
 
 '''
@@ -115,9 +120,10 @@ class Model(object):
         :return:
         """
         if classifier_name == "svm_linear":
-            self.clf = svm.SVC(kernel="linear")
+            self.clf = svm.SVC(kernel="linear", class_weight="auto")
+            # self.clf = svm.NuSVC()
         elif classifier_name == "svm_poly":
-            self.clf = svm.SVC(kernel="poly")
+            self.clf = svm.SVC(kernel="poly", class_weight="auto")
         elif classifier_name == "naive_bayes":
             self.clf = GaussianNB()
         elif classifier_name == "decision_tree":
@@ -197,10 +203,6 @@ class Model(object):
             return accuracy_list, acc_mean
 
     def evaluate_classification_report(self, fraction):
-        # x = preprocessing.Normalizer()
-        # norma = x.fit_transform(self.feature_samples, self.targets)
-        # norma = preprocessing.normalize(self.feature_samples)
-        # print norma
 
         if self.clf is None:
             raise NoClassifierException
@@ -212,27 +214,52 @@ class Model(object):
             # sollte auf 100 % /fraction trainiert werden, wird auch auf 100% getestet
             # wenn count_predict 0 ist (bei 100% count_train), dann wird self.targets[-count_predict:] zu self.targets[:]
             if self.test_data.name == self.train_data.name:
+
                 print "train_data and test_data from one data_set"
                 count_train = int(round((float(len(self.train_targets)) / float(100)) * float(fraction), 0))
                 count_predict = len(self.train_targets) - count_train
                 print "count_train:", count_train
                 print "count_predict:", count_predict
                 print "train_data summarize"
-                summarize_text(self.train_data.real_data.values()[-count_predict:])
+                summarize_textpair(self.train_data.real_data.values()[:count_train])
+                print "##########test_data summarize##########"
+                summarize_textpair(self.train_data.real_data.values()[-count_predict:])
+                # summarize_text(self.train_data.real_data.values()[-count_predict:])
 
                 train_samples = self.train_samples[:count_train]
-                # train_samples = norma[:count_train]
                 train_targets = self.train_targets[:count_train]
                 test_samples = self.train_samples[-count_predict:]
-                # test_samples = norma[-count_predict:]
                 test_targets = self.train_targets[-count_predict:]
 
                 self.clf.fit(train_samples, train_targets)
                 test_targets_predicted = self.clf.predict(test_samples)
 
-                print(metrics.classification_report(test_targets, test_targets_predicted, target_names=["0", "1"]))
+                null = 0
+                eins = 0
+                for i in test_targets:
+                    if i == 0:
+                        null += 1
+                    else:
+                        eins += 1
+                if null > eins:
+                    baseline = float(null)/(float(null)+float(eins))
+                else:
+                    baseline = float(eins)/(float(null)+float(eins))
+                print "Anzahl 0:", null
+                print "Anzahl 1:", eins
+                print "Baseline:", baseline
+                # print(metrics.classification_report(test_targets, test_targets_predicted, target_names=["0", "1"]))
+                m_list = precision_recall_fscore_support(test_targets, test_targets_predicted, average="macro", pos_label=None)
+                print "precision_avg: ", m_list[0]
+                print "recall_avg: ", m_list[1]
+                print "f_score_avg: ", m_list[2]
+                print "-------------------------------"
                 print "accuracy_score: ", accuracy_score(test_targets, test_targets_predicted)
             else:
+                # x = preprocessing.Normalizer()
+                # # norma = x.fit_transform(self.train_samples, self.train_targets)
+                # norma = preprocessing.normalize(self.train_samples)
+
                 count_train = int(round((float(len(self.train_targets)) / float(100)) * float(fraction), 0))
                 print "count_train:", count_train
                 print "count_predict:", len(self.test_targets)
@@ -240,10 +267,96 @@ class Model(object):
                 summarize_textpair(self.test_data.real_data.values())
 
                 train_samples = self.train_samples[:count_train]
+                # train_samples = norma[:count_train]
                 train_targets = self.train_targets[:count_train]
-
+                test_samples = self.test_samples
+                # test_samples = preprocessing.normalize(self.test_samples)
+                test_targets = self.test_targets
                 self.clf.fit(train_samples, train_targets)
-                test_targets_predicted = self.clf.predict(self.test_samples)
 
-                print(metrics.classification_report(self.test_targets, test_targets_predicted, target_names=["0", "1"]))
-                print "accuracy_score: ", accuracy_score(self.test_targets, test_targets_predicted)
+                test_targets_predicted = self.clf.predict(test_samples)
+                null = 0
+                eins = 0
+                for i in test_targets:
+                    if i == 0:
+                        null += 1
+                    else:
+                        eins += 1
+                if null > eins:
+                    baseline = float(null)/(float(null)+float(eins))
+                else:
+                    baseline = float(eins)/(float(null)+float(eins))
+                print "Anzahl 0:", null
+                print "Anzahl 1:", eins
+                print "Baseline:", baseline
+                print(metrics.classification_report(test_targets, test_targets_predicted, target_names=["0", "1"]))
+                m_list = precision_recall_fscore_support(test_targets, test_targets_predicted, average="macro", pos_label=None)
+                print "precision_avg: ", m_list[0]
+                print "recall_avg: ", m_list[1]
+                print "f_score_avg: ", m_list[2]
+                print "-------------------------------"
+                print "accuracy_score: ", accuracy_score(test_targets, test_targets_predicted)
+
+                # print train_samples
+                # print train_targets
+                # print self.clf.support_vectors_
+                # # get the separating hyperplane
+                # w = self.clf.coef_[0]
+                # a = -w[0] / w[1]
+                # xx = np.linspace(-100, 100)
+                # yy = a * xx - (self.clf.intercept_[0]) / w[1]
+                #
+                # # plot the parallels to the separating hyperplane that pass through the
+                # # support vectors
+                # b = self.clf.support_vectors_[0]
+                # yy_down = a * xx + (b[1] - a * b[0])
+                # b = self.clf.support_vectors_[-1]
+                # yy_up = a * xx + (b[1] - a * b[0])
+                #
+                # # plot the line, the points, and the nearest vectors to the plane
+                # plt.plot(xx, yy, 'k-')
+                # plt.plot(xx, yy_down, 'k--')
+                # plt.plot(xx, yy_up, 'k--')
+                #
+                # plt.scatter(self.clf.support_vectors_[:, 0], self.clf.support_vectors_[:, 1],
+                #             s=80, facecolors='none')
+                # plt.scatter(train_samples[:, 0], train_samples[:, 1], c=train_targets, cmap=plt.cm.Paired)
+                #
+                # plt.axis('tight')
+                # plt.show()
+
+
+                # print(__doc__)
+                #
+                # import numpy as np
+                # import matplotlib.pyplot as plt
+                # from sklearn import svm
+                #
+                # xx, yy = np.meshgrid(np.linspace(-100, 100, 500),
+                #                      np.linspace(-100, 100, 500))
+                # np.random.seed(0)
+                # # X = np.random.randn(300, 2)
+                # X = train_samples
+                #
+                # # Y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
+                # Y = train_targets
+                #
+                # # fit the model
+                # clf = svm.NuSVC()
+                # clf.fit(X, Y)
+                #
+                # # plot the decision function for each datapoint on the grid
+                # Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+                # print Z
+                # Z = Z.reshape(xx.shape)
+                #
+                # plt.imshow(Z, interpolation='nearest',
+                #            extent=(xx.min(), xx.max(), yy.min(), yy.max()), aspect='auto',
+                #            origin='lower', cmap=plt.cm.PuOr_r)
+                # contours = plt.contour(xx, yy, Z, levels=[0], linewidths=2,
+                #                        linetypes='--')
+                # plt.scatter(X[:, 0], X[:, 1], s=30, c=Y, cmap=plt.cm.Paired)
+                # plt.xticks(())
+                # plt.yticks(())
+                # plt.axis([-100, 100, -100, 100])
+                # plt.show()
