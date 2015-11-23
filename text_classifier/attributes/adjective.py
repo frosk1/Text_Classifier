@@ -39,9 +39,10 @@ class Adjective(Attribute):
             if tuple_tag[1] in self.adj_tag_list:
                 count += 1
 
-        if count >= 7:
-            adj = 1
-        else:
-            adj = 0
-
-        return adj
+        # if count >= 7:
+        #     adj = 1
+        # else:
+        #     adj = 0
+        #
+        # return adj
+        return count
