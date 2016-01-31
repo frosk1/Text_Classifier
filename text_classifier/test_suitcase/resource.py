@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-__author__ = 'jan'
 """
-++++++++++++++++++++++++++++++++++++++++++
 The resource-module for the test_suitcase.
-++++++++++++++++++++++++++++++++++++++++++
+
+Containing all ressources for test cases.
 """
+
+# Author Jan Wessling
 
 korpus_file = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_korpus.txt"
 anno_file = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation.txt"

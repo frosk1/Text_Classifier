@@ -1,22 +1,48 @@
-from sklearn.feature_extraction.text import CountVectorizer
+"""
+attribute class BagOfWords
+"""
+
 from text_classifier.attributes.attribute import Attribute
 from nltk.corpus import stopwords
-import collections
-__author__ = 'jan'
-'''
-class BagOfWords :
 
-'''
+# Author Jan Wessling
 
 
 class BagOfWords(Attribute):
+    """
+    attribute class BagOfWords
+
+    Compute a Bag of Words Model for the entirely text_set.
+
+    Parameters
+    ----------
+    bow_model : hash, shape = {string word : int 0}
+        The variable bow_model can be None if there was no seen training data
+        before or it is a hash representing a Bag of Words skeleton from the
+        already seen training data.
+
+    Attributes
+    ----------
+    _name : string
+        corresponding name of the implemented attribute
+
+    _text_set : set
+        Contains the unique text objects from the real data.
+        Initial value : None
+
+    stopwords : array, shape = [string stopdword1, string stopword2, ...]
+        Contains list of stopwords from the nltk.corpus for german language.
+
+    model : hash, shape = {string word : int 0}
+        This hash contains the Bag of Words skeleton for all unique words in
+        the text_set.
+    """
 
     def __init__(self, bow_model):
         self._name = "bag_of_words"
         self._text_set = None
         self.model = {}
         self.stopwords = stopwords.words("german")
-        self.sentence_list = []
         self.bow_model = bow_model
 
     @property
@@ -36,65 +62,55 @@ class BagOfWords(Attribute):
         self._text_set = new_value
 
     def compute(self):
+        """ Compute the feature value for attribute Bag of Words
+
+        First check whether there is a seen BoW skeleton or not. If
+        there isn't build_model().Walking through text_set and compute
+        feature value for every text object. Counting every word appearance
+        from the text_set.
+
+        Storing feature value in text.feature hash.
+        """
 
         if self.bow_model is not None:
             print "BOW not None"
-            # vectorizer = self.bow_model
-            # X = vectorizer.transform(self.sentence_list)
-            # # print vectorizer.get_feature_names()
-            # A = X.toarray()
 
             for text in self._text_set:
                 temp_model = dict(self.bow_model)
+
                 for word in text.wordlist_lower:
                     try:
                         temp_model[word] += 1
                     except KeyError:
                         continue
+
                 text.features["bag_of_words"] = temp_model.values()
 
-                # end_list = []
-                # for i in A[c]:
-                #     end_list.append(i)
-                #
-                # text.features["bag_of_words"] = end_list
-                # c += 1
         else:
             print "BOW is None"
-            # vectorizer = CountVectorizer(min_df=1)
-            # X = vectorizer.fit_transform(self.sentence_list)
-            # # print vectorizer.get_feature_names()
-            # A = X.toarray()
             self.build_model()
 
             for text in self._text_set:
-                # for test_case ''' test__bag_of_words__compute ''' use the OrderedDict
-                # to check the values with the term_frequency in test_suitcase.resource
-                #
-                # temp_model = collections.OrderedDict(sorted(self.model.items()))
-
                 temp_model = dict(self.model)
+
                 for word in text.wordlist_lower:
                     try:
                         temp_model[word] += 1
                     except KeyError:
                         continue
+
                 text.features["bag_of_words"] = temp_model.values()
 
             self.bow_model = self.model
-            #     end_list = []
-            #     for i in A[c]:
-            #         end_list.append(i)
-            #
-            #
-            #     text.features["bag_of_words"] = end_list
-            #     c += 1
-            # self.bow_model = vectorizer
 
     def build_model(self):
+        """ Building a Bag of Words Skeleton.
+
+        A Bag of Words Skeleton is a hash containing every unique
+        word, that is in a text from the text_set, as key.
+        Initial value is an integer(0).
+        """
         for text in self._text_set:
-            # self.sentence_list.append(text.text)
             for word in text.wordlist_lower:
                 if word not in self.stopwords:
                     self.model[word] = 0
-        # print self.sentence_list

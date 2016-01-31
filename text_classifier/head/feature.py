@@ -1,4 +1,7 @@
-from __builtin__ import staticmethod
+"""
+Feature class
+"""
+
 from text_classifier.attributes.bag_of_words import BagOfWords
 from text_classifier.attributes.tf_idf import TfIdf
 from text_classifier.attributes.readability import Readability
@@ -12,18 +15,27 @@ from text_classifier.attributes.bag_of_pos import BagOfPos
 from text_classifier.attributes.modal import ModalVerb
 from text_classifier.attributes.sentence_start import SentenceStart
 
-__author__ = 'jan'
-
-
-'''
-Class Feature :
-
-Interface for communication between data and attributes
-
-'''
+# Author Jan Wessling
 
 
 class Feature(object):
+    """
+    Feature Interface
+
+    Interface for communication between attribute classes and data class.
+
+    Parameter
+    ---------
+    name : string, optional
+        Contains the name of the feature, that should be attached.
+
+    name_list : array, shape = [string feature name1, ...]
+        Contains the names of the features, that should be attached.
+
+    bow_model :  bow skeleton --> hash, shape = { string word : int 0 }
+                 bop skeleton --> hash, shape = { string pos tag : int 0 }
+        Contains bow or bop skeleton. Inital value is None.
+    """
 
     def __init__(self, name=None, name_list=None, bow_model=None):
         self.name = name
@@ -31,11 +43,19 @@ class Feature(object):
         self.bow_model = bow_model
 
     def init_attribute(self, attribute_name):
+        """Create attribute instance
+
+        Parameter
+        ---------
+        attribute_name : string
+            Contains the feature name, to create an attribute
+            instance.
+        """
         if attribute_name == "bag_of_words":
             attribute = BagOfWords(self.bow_model)
             return attribute
         elif attribute_name == "tf_idf":
-            attribute = TfIdf()
+            attribute = TfIdf(self.bow_model)
             return attribute
         elif attribute_name == "readability":
             attribute = Readability()
@@ -68,13 +88,35 @@ class Feature(object):
             raise FeatureNotExistException(attribute_name)
 
     def add_attribute(self, text_set):
+        """ Attach feature value from one attribute
+
+        Build attribute class and compute feature value. Attach
+        feauture value to text objects in _text_set.
+
+        Parameter
+        ---------
+        text_set : set
+            Contains all unique text objects. Basis for Computation
+            of feature values.
+        """
         attribute = self.init_attribute(self.name)
         attribute._text_set = text_set
         attribute.compute()
-        if self.name == "bag_of_words" or self.name == "bag_of_pos":
+        if self.name == "bag_of_words" or self.name == "bag_of_pos" or self.name == "tf_idf":
             self.bow_model = attribute.bow_model
 
     def add_attribute_list(self, text_set):
+        """ Attach feature value from more than one attribute
+
+        Build attribute class and compute feature value. Attach
+        feauture value to text objects in _text_set.
+
+        Parameter
+        ---------
+        text_set : set
+            Contains all unique text objects. Basis for Computation
+            of feature values.
+        """
         for att_name in self.name_list:
             self.name = att_name
             self.add_attribute(text_set)

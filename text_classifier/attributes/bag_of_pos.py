@@ -1,10 +1,45 @@
+"""
+attribute class BagOfPos
+"""
 
 from text_classifier.attributes.attribute import Attribute
 import treetaggerwrapper
-__author__ = 'jan'
+
+# Author Jan Wessling
 
 
 class BagOfPos(Attribute):
+    """
+    attribute class BagOfPos
+
+    Compute a Bag of Pos Tag Model for the entirely text_set.
+
+    Parameters
+    ----------
+    bow_model : hash, shape = {string Pos Tag : int 0}
+        The variable bow_model can be None if there was no seen training data
+        before or it is a hash representing a Bag of Pos Tag skeleton from the
+        already seen training data.
+
+    Attributes
+    ----------
+    _name : string
+        corresponding name of the implemented attribute
+
+    _text_set : set
+        Contains the unique text objects from the real data.
+        Initial value : None
+
+    tagger : TreeTaggerWrapper with TAGLANG= de
+        Python Wrapper for the TreeTagger of Helmudt Schmidt.
+        http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+        Python Wrapper was developed by Laurent Pointal
+        http://treetaggerwrapper.readthedocs.org/en/latest/
+
+    model : hash, shape = {string word : int 0}
+        This hash contains the Bag of Words skeleton for all unique words in
+        the text_set.
+    """
 
     def __init__(self, bow_model):
         self._name = "bag_of_pos"
@@ -12,11 +47,6 @@ class BagOfPos(Attribute):
         self.tagger = treetaggerwrapper.TreeTagger(TAGLANG='de')
         self.model = {}
         self.bow_model = bow_model
-        self.tag_list = [u'$.', u'PAV', u'KON', u'PWAV', u'APPR', u'VMFIN', u'ADJA', u'PTKNEG', u'VVIZU', u'PRF', u'NN',
-                         u'PDAT', u'NE', u'PIAT', u'ADJD', u'VVINF', u'FM', u'PTKVZ', u'PRELS', u'PIS', u'VVFIN', u'TRUNC',
-                         u'ADV', u'$,', u'PPOSAT', u'ART', u'$(', u'KOUS', u'PDS', u'VVPP', u'VMPP', u'PTKANT', u'PTKZU',
-                         u'CARD', u'VMINF', u'KOUI', u'VVIMP', u'ITJ', u'PWS', u'VAFIN', u'VAINF', u'APPRART', u'KOKOM',
-                         u'PTKA', u'XY', u'PPER', u'APZR']
 
     @property
     def name(self):
@@ -34,20 +64,16 @@ class BagOfPos(Attribute):
     def text_set(self, new_value):
         self._text_set = new_value
 
-    # def compute(self):
-    #     self.build_model()
-    #     print len(self.model.keys())
-    #     for text in self._text_set:
-    #         temp_model = dict(self.model)
-    #         tags = treetaggerwrapper.make_tags(self.tagger.tag_text(text.text.decode("utf-8")))
-    #         for i in tags:
-    #             temp_model[i[1]] += 1
-    #
-    #         text.features["test_attribute"] = temp_model.values()
-    #
-    # def build_model(self):
-    #     self.model = {tag: 0 for tag in self.tag_list}
     def compute(self):
+        """ Compute the feature value for attribute Bag of Pos Tag
+
+        First check whether there is a seen BoP skeleton or not. If
+        there isn't build_model().Walking through text_set and compute
+        feature value for every text object. Counting every Pos Tag appearance
+        from the text_set.
+
+        Storing feature value in text.feature hash.
+        """
 
         if self.bow_model is not None:
             print "BOW not None"
@@ -60,7 +86,7 @@ class BagOfPos(Attribute):
                         temp_model[tag[1]] += 1
                     except KeyError:
                         continue
-                text.features["test_attribute"] = temp_model.values()
+                text.features["bag_of_pos"] = temp_model.values()
 
         else:
             print "BOW is None"
@@ -79,12 +105,18 @@ class BagOfPos(Attribute):
                         temp_model[tag[1]] += 1
                     except KeyError:
                         continue
-                text.features["test_attribute"] = temp_model.values()
+                text.features["bag_of_pos"] = temp_model.values()
 
             self.bow_model = self.model
 
 
     def build_model(self):
+        """ Building a Bag of Pos Tag Skeleton.
+
+        A Bag of Pos Tag Skeleton is a hash containing every unique
+        Pos Tag, that is in a text from the text_set, as key.
+        Initial value is an integer(0).
+        """
         for text in self._text_set:
             tags = treetaggerwrapper.make_tags(self.tagger.tag_text(text.text.decode("utf-8")))
             for tag in tags:

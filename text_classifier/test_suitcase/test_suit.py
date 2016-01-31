@@ -1,8 +1,42 @@
+"""
+Test suits for the text-classification-system
+"""
+
 from text_classifier.test_suitcase.test_case import *
-__author__ = 'jan'
+
+# Author Jan Wessling
 
 
 class TestSuits(object):
+    """
+    Test Suits
+
+    Loading test cases from test_case.py into test suits.
+
+    Parameters
+    ----------
+    test_name : string, optional
+        Containing the name of the used system test.
+
+    Attributes
+    ----------
+    test_dict : hash, shape = {string test name : array}
+        Containing predefined test structures for the system.
+        array, shape : [TestCase1, TestCase2, ...]
+
+    test_case_list : array, shape = [string test name1, ...]
+        Containing all names of the predefined test structures.
+
+    test_load : unittest.TestLoader object
+        TestLoader is responsible for loading test cases in a
+        TestSuit
+
+    test_runner : unittest.TextTestRunner object
+        TextTestRunner displays test results in a textual form.
+
+    _selected_test_list : array, shape = [loaded testcase1, ...]
+        Contains all loaded testCases from the test_dict.
+    """
 
     def __init__(self, test_name=None):
         self.test_name = test_name

@@ -1,9 +1,10 @@
-__author__ = 'jan'
 """
-+++++++++++++++++++++++++++++++++++++++++++++++++++
 Exception-Module for Text-Classifier-System
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Containing all exceptions for the text-classification system.
 """
+
+# Author Jan Wessling
 
 
 class EmptyTextException(Exception):

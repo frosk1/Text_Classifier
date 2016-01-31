@@ -1,16 +1,37 @@
-# from sklearn.metrics.pairwise import pairwise_distances
+"""
+Textpair class for storing annotation
+"""
+
 from text_classifier.exceptions import UnequalSizeException
 
-__author__ = 'jan'
-
-'''
-Class Textpair :
-
-
-'''
+# Author: Jan Wessling
 
 
 class TextPair(object):
+    """ textpair annotation
+
+    Storing the annotation data for a Pair of text objects.
+
+    Parameters
+    ----------
+    text1 : Text, obligatory
+        text object stord in the corpus class
+
+    text2 : Text, obligatory
+        text object stord in the corpus class
+
+    target : int, obligatory
+        target is the annotation value --> 0,1
+
+    Attributes
+    ----------
+    name : string
+        Contains the text.id from text1 and text2.
+
+    feature_vector : array, shape = [n_feature_values]
+        Represents the feature_vector of a textpair. This vector ist the
+        differential between text1-vector and text2-vector.
+    """
     def __init__(self, text1, text2, target):
         self.text1 = text1
         self.text2 = text2
@@ -26,6 +47,11 @@ class TextPair(object):
                "Atrtibute:   " + str(self.text2.features)
 
     def iter_feature_values(self):
+        """Generator iterates feature_vectors
+
+        Yields every dimension of the feature_vectors for
+        text1 and text2.
+        """
         self.text1.vectorize()
         self.text2.vectorize()
 
@@ -36,11 +62,10 @@ class TextPair(object):
             raise UnequalSizeException(self.name)
 
     def vectorize(self):
-        """
-        method vectorizer :
+        """ Setter for the feature_vector
 
-        feature vector in a textpair object ist the
-        differential between text1 and text2.
+        Walking through every value in the feature_vectors of
+        text1 and text2, then building the differntial.
         """
         for value1, value2 in TextPair.iter_feature_values(self):
             self.feature_vector.append(value1 - value2)

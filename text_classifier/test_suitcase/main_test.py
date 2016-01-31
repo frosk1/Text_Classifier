@@ -1,11 +1,10 @@
 from test_suit import TestSuits
 
-__author__ = 'jan'
+# Author Jan Wessling
+
 
 """
-+++++++++++++++++++++++++++++++++++++++++++++++++++
 Main-Module for testing the Text-Classifier-System
-+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Set up your testing environment here.
 -------------------------------------

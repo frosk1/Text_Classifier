@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+Test Case Modul
+
+Definition of all test cases for the text-classificaion-system.
+"""
+
 from text_classifier.body.korpus import Korpus
 from text_classifier.head.data import Data
 from text_classifier.attributes.bag_of_words import BagOfWords
@@ -11,7 +17,7 @@ import unittest
 import collections
 import resource as res
 
-__author__ = 'jan'
+# Author Jan Wessling
 
 
 class TestBodyModel(unittest.TestCase):

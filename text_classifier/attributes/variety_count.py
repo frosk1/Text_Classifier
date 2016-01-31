@@ -1,13 +1,39 @@
+"""
+attribute class Variety
+"""
 # -*- coding: utf-8 -*-
+
 from text_classifier.attributes.attribute import Attribute
 import re
 import collections
 from nltk.corpus import stopwords
-__author__ = 'jan'
+
+# Author Jan Wessling
 
 
 class Variety(Attribute):
+    """
+    attribute class Variety
 
+    Compute the variety count. Looking for recurrence in successive
+    sentence.
+
+
+    Attributes
+    ----------
+    _name : string
+        corresponding name of the implemented attribute
+
+    _text_set : set
+        Contains the unique text objects from the real data.
+        Initial value : None
+
+    stopwords : array, shape = [string stopdword1, string stopword2, ...]
+        Contains list of stopwords from the nltk.corpus for german language.
+
+    var_count : hash, shape = { int text id : int variety count}
+        Contains the corresponding variety count for the text object.
+    """
     def __init__(self):
         self._name = "variety"
         self._text_set = None
@@ -31,6 +57,13 @@ class Variety(Attribute):
         self._text_set = new_value
 
     def compute(self):
+        """ Compute the feature value for attribute Variety
+
+        Build wordlist for all two successive sentence in the text.
+        Count and filter wordlist.
+
+        Storing feature value in text.feature hash.
+        """
         for text in self._text_set:
             self.var_count[text.id] = 0
 
@@ -47,6 +80,16 @@ class Variety(Attribute):
                 self.count_and_filter(words, text)
 
     def count_and_filter(self, wordlist, text):
+        """ Count recurrence and filter stopwords.
+
+        Parameter
+        ---------
+        wordlist : array, shape = [unicode word1, unicode word2, ...]
+            contains all words from two successive sentences.
+
+        text : Text
+            Contains text object from the text_set.
+        """
         c = collections.Counter(wordlist)
         for x in c.keys():
             if x.lower() in self.stopwords:

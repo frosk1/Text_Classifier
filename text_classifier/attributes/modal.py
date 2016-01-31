@@ -1,9 +1,38 @@
+"""
+attribute class ModalVerb
+"""
+
 from text_classifier.attributes.attribute import Attribute
 import treetaggerwrapper
-__author__ = 'jan'
+
+# Author Jan Wessling
 
 
 class ModalVerb(Attribute):
+    """
+    attribute class ModalVerb
+
+    Compute the quantity of ModalVerb appearance in the text.
+
+    Attributes
+    ----------
+    _name : string
+        corresponding name of the implemented attribute
+
+    _text_set : set
+        Contains the unique text objects from the real data.
+        Initial value : None
+
+    tagger : TreeTaggerWrapper with TAGLANG= de
+        Python Wrapper for the TreeTagger of Helmudt Schmidt.
+        http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+        Python Wrapper was developed by Laurent Pointal
+        http://treetaggerwrapper.readthedocs.org/en/latest/
+
+    tag_list : array, shape = [unicode tag1, unicode tag2,... ]
+        Contaings Pos Tags for every ModalVerb.
+
+    """
 
     def __init__(self):
         self._name = "modal_verb"
@@ -28,7 +57,12 @@ class ModalVerb(Attribute):
         self._text_set = new_value
 
     def compute(self):
+        """ Compute the quantity of ModalVerbs in every text from the text_set
 
+        Walking through text_set and compute feature value for every text object.
+
+        Storing feature value in text.feature hash.
+        """
         for text in self._text_set:
             count_modal = 0
             tags = treetaggerwrapper.make_tags(self.tagger.tag_text(text.text.decode("utf-8")))
