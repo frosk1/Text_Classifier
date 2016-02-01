@@ -61,10 +61,10 @@ def main():
     # Shell output for detailed information of set data
 
     # training data
-    print "+++++++++++ summarize " + data1.name + " data+++++++++++"+"\n"
+    print "+++++++++++ summarize " + data1.name + " data+++++++++++" + "\n"
     summarize_textpair(data1.real_data.values())
     # test data
-    print "+++++++++++ summarize " + data2.name + " data+++++++++++" +"\n"
+    print "+++++++++++ summarize " + data2.name + " data+++++++++++" + "\n"
     summarize_textpair(data2.real_data.values())
 
     # Set Model
