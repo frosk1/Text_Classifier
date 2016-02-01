@@ -5,7 +5,7 @@ Modul contains the file paths for korpus data.
 
 Usage :
 
-Change the path to your Korpus folder
+Change the path to your Korpus folder found in the Text_Classifier folder
 
     ZA = "/insert path to the Korpus folder/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell_marked.txt"
     ....
