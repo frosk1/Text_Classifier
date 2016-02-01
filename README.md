@@ -1,7 +1,7 @@
 Text_Classifier
 =============
 
-GitHub: https://github.com/frosky/Text_Classifier
+GitHub: https://github.com/aexeagmbh/Text_Classifier
 
 
 About
