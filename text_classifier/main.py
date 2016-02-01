@@ -3,9 +3,12 @@
 Usage :
 
 
-Change the path to your Text_Classifier folder
+Change the path to your Text_Classifier folder !
 
     sys.path.insert(0, '/path to your Text_Classifier folder/Text_Classifier')
+
+Change the path in ressource_path.py to your Korpus folder !
+
 
 Use the classification system in the main method.
     1. Set Korpus
