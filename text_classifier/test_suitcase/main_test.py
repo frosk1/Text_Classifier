@@ -1,5 +1,7 @@
-from test_suit import TestSuits
+import sys
+sys.path.insert(0, '/home/jan/Development/Text_Classifier')
 
+from test_suit import TestSuits
 # Author Jan Wessling
 
 
