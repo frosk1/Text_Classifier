@@ -7,7 +7,8 @@ Change the path to your Text_Classifier folder !
 
     sys.path.insert(0, '/path to your Text_Classifier folder/Text_Classifier')
 
-Change the path in ressource_path.py to your Korpus folder !
+Change the path in resource_path.py to your Korpus folder, which
+is placed in the Text_Classifier folder !
 
 
 Use the classification system in the main method.
@@ -26,7 +27,7 @@ from head.data import summarize_textpair
 from body.korpus import Korpus
 from head.data import Data
 from model.model import Model
-import ressource_path as res
+import resource_path as res
 
 # Author Jan Wessling
 
