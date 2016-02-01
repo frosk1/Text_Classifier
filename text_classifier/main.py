@@ -1,94 +1,46 @@
 """ Main Module for Classification-System
+
+Usage :
+
+
+Change the path to your Text_Classifier folder
+
+    sys.path.insert(0, '/path to your Text_Classifier folder/Text_Classifier')
+
+Use the classification system in the main method.
+    1. Set Korpus
+    2. Set Data
+    3. Attach Features
+    4. Set Model
+    5. Start Classification with Report
+
 """
-# -*- coding: utf-8 -*-
 
 import sys
 sys.path.insert(0, '/home/jan/Development/Text_Classifier')
-
 from time import time
 from head.data import summarize_textpair
 from body.korpus import Korpus
 from head.data import Data
 from model.model import Model
-
+import ressource_path as res
 
 # Author Jan Wessling
 
 
 def main():
-
-    ZA = "/home/jan/Development/Korpus/ZA/Finales_Korpus/Text_Korpus_aktuell_marked.txt"
-    Fball = "/home/jan/Development/Korpus/Fball/Finales_Korpus/Fussball_korpus_marked.txt"
-    file_test = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_korpus2.txt"
-    file_test2 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation2.txt"
-    file_test2_2 ="/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation2_2.txt"
-    file1 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_korpus.txt"
-    file2 = "/home/jan/Development/Text_Classifier/text_classifier/test_suitcase/test_annotation.txt"
-    file3 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_regular_equal_Jan_Mel.txt"
-    file4 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Jan.txt"
-    file5 = "/home/jan/Development/Korpus/ZA/Annotation/annotation_independent_350_Mel.txt"
-    file6 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_80.txt"
-    testmenge_ZA = "/home/jan/Development/Korpus/ZA/Annotation/testmenge400_ZA.txt"
-    trainingsmenge_ZA = "/home/jan/Development/Korpus/ZA/Annotation/trainingsmenge600_ZA.txt"
-    testmenge_Fball = "/home/jan/Development/Korpus/Fball/Annotation/testmenge200_Fball.txt"
-    trainingsmenge_Fball = "/home/jan/Development/Korpus/Fball/Annotation/trainingsmenge500_Fball.txt"
-    file6_test = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_80_20pro.txt"
-    file7 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_20.txt"
-    file8 = "/home/jan/Development/Korpus/ZA/Annotation/overall_annotation_100.txt"
-    file6_testing = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample_geteilt/overall_annotation_80.txt"
-    file10 = "/home/jan/Development/Korpus/Fball/Annotation/overall_annotation_100.txt"
-    file11 = "/home/jan/Development/Korpus/Fball/Annotation/overall_annotation_818.txt"
-
-    # manuelle_Annotation
-    testmenge_ZA = "/home/jan/Development/Korpus/ZA/Annotation/testmenge400_ZA.txt"
-    trainingsmenge_ZA = "/home/jan/Development/Korpus/ZA/Annotation/trainingsmenge600_ZA.txt"
-    testmenge_Fball = "/home/jan/Development/Korpus/Fball/Annotation/testmenge200_Fball.txt"
-    trainingsmenge_Fball = "/home/jan/Development/Korpus/Fball/Annotation/trainingsmenge600_Fball.txt"
-
-    # train
-    sampling_anno_auto_gut1_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_auto_gut1_10k.txt"
-    sampling_anno_auto_gut2_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_auto_gut2_10k.txt"
-    sampling_anno_auto_schlecht1_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_auto_schlecht1_10k.txt"
-    sampling_anno_auto_schlecht2_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_auto_schlecht2_10k.txt"
-    sampling_anno_man1_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_man1_10k.txt"
-    sampling_anno_man_all = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_man1.txt"
-    sampling_anno_man2_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_man2_10k.txt"
-    sampling_anno_man4_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_man4_10k.txt"
-    sampling_anno_man_auto_gut_1_10k = "/home/jan/Development/Korpus/ZA/Annotation/auto_sample/sampling_anno_man_auto_gut_1_10k.txt"
-
-    fball_sampling_anno_man1_10k = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_man1_10k.txt"
-    fball_sampling_anno_man_auto_gut1 = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_man_auto_gut1.txt"
-    fball_sampling_anno_man2 = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_man2.txt"
-    fball_sampling_anno_auto_gut1_10k = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_auto_gut1_10k.txt"
-    fball_sampling_anno_auto_gut2 = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_auto_gut2.txt"
-    fball_sampling_anno_auto_schlecht1 = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_auto_schlecht1.txt"
-    fball_sampling_anno_auto_schlecht2 = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_anno_auto_schlecht2.txt"
-    fball_sampling_anno_man4_10k = "/home/jan/Development/Korpus/Fball/Annotation/auto_sample/fball_sampling_man4_10k.txt"
-
-    # test
-    filter_anno_auto_gut_auto_schlecht = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_auto_gut_auto_schlecht.txt"
-    filter_anno_auto_gut_man = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_auto_gut_man.txt"
-    filter_anno_auto_schlecht_man = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_auto_schlecht_man.txt"
-    filter_anno_man_auto_schlecht_auto_gut_auto_schlecht = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/Rfilter_anno_man_auto_schlecht_auto_gut_auto_schlecht.txt"
-    filter_anno_never_same = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_never_same.txt"
-    filter_anno_man_man = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_man_man.txt"
-    filter_anno_JMequal_man_man = "/home/jan/Development/Korpus/ZA/Annotation/filter_anno/filter_anno_JMequal_man_man.txt"
-
-
-
-
-
+    print "Starting Text Classification System" + "\n"
 
     # Set Korpus
     k1 = Korpus("Test")
-    k1.insert_from_file(Fball)
+    k1.insert_from_file(res.Fball)
 
     # Set Data
     data1 = Data("train", k1)
-    data1.add_anno(fball_sampling_anno_man1_10k)
+    data1.add_anno(res.fball_sampling_anno_man1_10k)
 
     data2 = Data("test", k1)
-    data2.add_anno(testmenge_Fball)
+    data2.add_anno(res.testmenge_Fball)
 
     datas = [data1, data2]
 
