@@ -1,0 +1,20 @@
+Annotations-Ergebnisse
+ 
+Text 21: 4
+Text 22: 1
+Text 23: 2
+Text 24: 0
+Text 25: 3
+ 
+Textpaare
+ 
+Text 22, Text 25		1 
+Text 21, Text 24		0 
+Text 23, Text 25		1 
+Text 23, Text 24		0 
+Text 21, Text 25		0 
+Text 22, Text 23		1 
+Text 21, Text 23		0 
+Text 24, Text 25		1 
+Text 22, Text 24		0 
+Text 21, Text 22		0 

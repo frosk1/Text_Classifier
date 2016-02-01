@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 108: 3
+Text 109: 3
+Text 110: 2
+Text 111: 2
+Text 112: 5
+Text 113: 0
+ 
+Textpaare
+ 
+Text 109, Text 110		1 
+Text 108, Text 111		0 
+Text 108, Text 112		1 
+Text 110, Text 113		0 
+Text 110, Text 111		1 
+Text 112, Text 113		0 
+Text 111, Text 113		0 
+Text 110, Text 112		1 
+Text 109, Text 111		0 
+Text 108, Text 110		0 
+Text 111, Text 112		1 
+Text 108, Text 109		1 
+Text 109, Text 112		1 
+Text 108, Text 113		0 
+Text 109, Text 113		0 

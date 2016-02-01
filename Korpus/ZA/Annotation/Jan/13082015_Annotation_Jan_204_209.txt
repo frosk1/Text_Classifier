@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 204: 4
+Text 205: 0
+Text 206: 2
+Text 207: 4
+Text 208: 1
+Text 209: 4
+ 
+Textpaare
+ 
+Text 204, Text 208		0 
+Text 207, Text 208		0 
+Text 204, Text 207		1 
+Text 208, Text 209		1 
+Text 205, Text 209		1 
+Text 204, Text 209		0 
+Text 205, Text 208		1 
+Text 204, Text 206		0 
+Text 206, Text 207		1 
+Text 205, Text 207		1 
+Text 206, Text 208		0 
+Text 206, Text 209		1 
+Text 207, Text 209		1 
+Text 204, Text 205		0 
+Text 205, Text 206		1 

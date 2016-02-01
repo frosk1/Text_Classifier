@@ -1,0 +1,20 @@
+Annotations-Ergebnisse
+ 
+Text 36: 1
+Text 37: 3
+Text 38: 2
+Text 39: 4
+Text 40: 0
+ 
+Textpaare
+ 
+Text 38, Text 40		0 
+Text 36, Text 40		0 
+Text 36, Text 37		1 
+Text 37, Text 38		0 
+Text 36, Text 38		1 
+Text 36, Text 39		1 
+Text 37, Text 39		1 
+Text 38, Text 39		1 
+Text 37, Text 40		0 
+Text 39, Text 40		0 

@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 228: 1
+Text 229: 5
+Text 230: 1
+Text 231: 3
+Text 232: 1
+Text 233: 4
+ 
+Textpaare
+ 
+Text 228, Text 229		1 
+Text 231, Text 233		1 
+Text 230, Text 232		0 
+Text 230, Text 233		1 
+Text 228, Text 232		1 
+Text 228, Text 230		0 
+Text 232, Text 233		1 
+Text 228, Text 233		1 
+Text 229, Text 230		0 
+Text 230, Text 231		1 
+Text 229, Text 231		0 
+Text 229, Text 233		0 
+Text 228, Text 231		1 
+Text 229, Text 232		0 
+Text 231, Text 232		0 

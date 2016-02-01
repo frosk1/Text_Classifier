@@ -1,0 +1,2 @@
+Text 138, Text 296		0
+Text 85, Text 243		1

@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 126: 0
+Text 127: 5
+Text 128: 3
+Text 129: 1
+Text 130: 2
+Text 131: 4
+ 
+Textpaare
+ 
+Text 129, Text 131		1 
+Text 130, Text 131		1 
+Text 128, Text 130		0 
+Text 129, Text 130		1 
+Text 127, Text 128		0 
+Text 126, Text 130		1 
+Text 127, Text 131		0 
+Text 127, Text 130		0 
+Text 128, Text 129		0 
+Text 126, Text 127		1 
+Text 128, Text 131		1 
+Text 126, Text 128		1 
+Text 127, Text 129		0 
+Text 126, Text 131		1 
+Text 126, Text 129		1 

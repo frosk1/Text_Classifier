@@ -1,0 +1,10 @@
+Text 208, Text 280		0
+Text 177, Text 386		1
+Text 232, Text 304		0
+Text 272, Text 280		0
+Text 181, Text 341		0
+Text 181, Text 182		0
+Text 279, Text 395		1
+Text 176, Text 190		0
+Text 279, Text 338		1
+Text 219, Text 281		1

@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 46: 2
+Text 47: 4
+Text 48: 2
+Text 49: 2
+Text 50: 0
+Text 51: 5
+ 
+Textpaare
+ 
+Text 50, Text 51		1 
+Text 46, Text 47		1 
+Text 48, Text 51		1 
+Text 49, Text 51		1 
+Text 46, Text 48		1 
+Text 48, Text 50		0 
+Text 46, Text 51		1 
+Text 47, Text 49		0 
+Text 49, Text 50		0 
+Text 47, Text 51		1 
+Text 47, Text 50		0 
+Text 48, Text 49		1 
+Text 46, Text 50		0 
+Text 46, Text 49		0 
+Text 47, Text 48		0 

@@ -1,0 +1,31 @@
+                                                   Resultate Annnotation
+                                                   ---------------------
+
+Legende:
+
+M = manuelle Texte
+G = automatisch gute Texte
+S = automatisch schlechte Texte
+# = Anzahl Textpaare
+a = Annotation
+
+Manuelle Testmenge:
+
+	Overall =  #817
+
+	M -- S / S -- M = # 40     --->  40 M ;   0 S  | 0:  26 ;  1:  14
+	M -- G / M -- G = #319     ---> 287 M ;  32 G  | 0: 206 ;  1: 113
+	S -- G / G -- S = # 94     --->  75 G ;  19 S  | 0:  43 ;  1:  51
+
+	S -- S = #7
+	G -- G = #298
+	M -- M = #59
+
+
+	Annotation
+
+	G+S =  a496 ; 60.64 %
+	S   =  a125 ; 15.28 %
+	G   =  a371 ; 45.35 %
+	M   =  a322 ; 39.36 %
+

@@ -1,0 +1,10 @@
+Text 44, Text 89		0
+Text 53, Text 148		1
+Text 89, Text 97		1
+Text 283, Text 284		0
+Text 148, Text 441		0
+Text 217, Text 424		0
+Text 80, Text 305		0
+Text 163, Text 325		0
+Text 12, Text 116		1
+Text 60, Text 90		1

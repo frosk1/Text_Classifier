@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 84: 3
+Text 85: 1
+Text 86: 2
+Text 87: 5
+Text 88: 4
+Text 89: 0
+ 
+Textpaare
+ 
+Text 85, Text 88		1 
+Text 87, Text 89		0 
+Text 84, Text 85		0 
+Text 87, Text 88		0 
+Text 84, Text 87		1 
+Text 85, Text 89		0 
+Text 84, Text 86		0 
+Text 86, Text 88		1 
+Text 85, Text 86		1 
+Text 86, Text 87		1 
+Text 85, Text 87		1 
+Text 84, Text 89		0 
+Text 86, Text 89		0 
+Text 84, Text 88		1 
+Text 88, Text 89		0 

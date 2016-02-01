@@ -1,0 +1,147 @@
+Annotations-Ergebnisse
+ 
+Text 403: 2
+Text 225: 2
+Text 160: 2
+Text 92: 1
+Text 63: 1
+Text 56: 1
+Text 51: 1
+Text 45: 1
+Text 41: 1
+Text 399: 1
+Text 389: 1
+Text 377: 1
+Text 376: 1
+Text 370: 1
+Text 354: 1
+Text 350: 1
+Text 339: 1
+Text 329: 1
+Text 327: 1
+Text 302: 1
+Text 301: 1
+Text 3: 1
+Text 298: 1
+Text 284: 1
+Text 28: 1
+Text 27: 1
+Text 26: 1
+Text 257: 1
+Text 233: 1
+Text 23: 1
+Text 222: 1
+Text 212: 1
+Text 203: 1
+Text 196: 1
+Text 182: 1
+Text 179: 1
+Text 174: 1
+Text 161: 1
+Text 16: 1
+Text 153: 1
+Text 148: 1
+Text 140: 1
+Text 14: 1
+Text 132: 1
+Text 127: 1
+Text 102: 1
+Text 101: 1
+Text 97: 0
+Text 93: 0
+Text 74: 0
+Text 72: 0
+Text 68: 0
+Text 53: 0
+Text 426: 0
+Text 417: 0
+Text 414: 0
+Text 408: 0
+Text 405: 0
+Text 380: 0
+Text 353: 0
+Text 348: 0
+Text 346: 0
+Text 342: 0
+Text 323: 0
+Text 317: 0
+Text 313: 0
+Text 312: 0
+Text 310: 0
+Text 303: 0
+Text 294: 0
+Text 293: 0
+Text 268: 0
+Text 255: 0
+Text 248: 0
+Text 241: 0
+Text 236: 0
+Text 232: 0
+Text 223: 0
+Text 220: 0
+Text 214: 0
+Text 213: 0
+Text 199: 0
+Text 193: 0
+Text 190: 0
+Text 181: 0
+Text 164: 0
+Text 156: 0
+Text 137: 0
+Text 136: 0
+Text 124: 0
+Text 123: 0
+Text 0: 0
+ 
+Textpaare
+ 
+Text 74, Text 257		1 
+Text 53, Text 161		1 
+Text 101, Text 303		0 
+Text 354, Text 414		0 
+Text 3, Text 190		0 
+Text 310, Text 403		1 
+Text 14, Text 97		0 
+Text 193, Text 298		1 
+Text 132, Text 348		0 
+Text 72, Text 370		1 
+Text 323, Text 339		1 
+Text 93, Text 329		1 
+Text 160, Text 312		0 
+Text 23, Text 426		0 
+Text 182, Text 346		0 
+Text 53, Text 233		1 
+Text 164, Text 302		1 
+Text 68, Text 160		1 
+Text 127, Text 236		0 
+Text 174, Text 248		0 
+Text 196, Text 417		0 
+Text 179, Text 317		0 
+Text 27, Text 353		0 
+Text 190, Text 225		1 
+Text 214, Text 284		1 
+Text 137, Text 403		1 
+Text 248, Text 301		1 
+Text 92, Text 294		0 
+Text 377, Text 405		0 
+Text 148, Text 232		0 
+Text 45, Text 408		0 
+Text 28, Text 124		0 
+Text 63, Text 223		0 
+Text 313, Text 389		1 
+Text 0, Text 153		1 
+Text 199, Text 376		1 
+Text 16, Text 136		0 
+Text 212, Text 241		0 
+Text 156, Text 222		1 
+Text 51, Text 293		0 
+Text 123, Text 327		1 
+Text 26, Text 137		0 
+Text 220, Text 399		1 
+Text 203, Text 213		0 
+Text 225, Text 268		0 
+Text 56, Text 255		0 
+Text 41, Text 380		0 
+Text 255, Text 350		1 
+Text 140, Text 181		0 
+Text 102, Text 342		0 

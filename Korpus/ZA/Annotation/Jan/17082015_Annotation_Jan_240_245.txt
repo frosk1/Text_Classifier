@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 240: 1
+Text 241: 2
+Text 242: 3
+Text 243: 4
+Text 244: 0
+Text 245: 5
+ 
+Textpaare
+ 
+Text 243, Text 245		1 
+Text 242, Text 243		1 
+Text 243, Text 244		0 
+Text 240, Text 243		1 
+Text 241, Text 245		1 
+Text 240, Text 245		1 
+Text 240, Text 244		0 
+Text 242, Text 244		0 
+Text 240, Text 241		1 
+Text 240, Text 242		1 
+Text 241, Text 242		1 
+Text 244, Text 245		1 
+Text 241, Text 243		1 
+Text 242, Text 245		1 
+Text 241, Text 244		0 

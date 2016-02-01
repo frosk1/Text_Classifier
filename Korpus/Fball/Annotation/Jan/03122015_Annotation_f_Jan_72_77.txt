@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 72: 2
+Text 73: 5
+Text 74: 2
+Text 75: 2
+Text 76: 1
+Text 77: 3
+ 
+Textpaare
+ 
+Text 75, Text 77		0 
+Text 75, Text 76		1 
+Text 73, Text 77		0 
+Text 73, Text 76		0 
+Text 72, Text 74		1 
+Text 74, Text 77		1 
+Text 74, Text 76		0 
+Text 73, Text 74		0 
+Text 72, Text 76		0 
+Text 73, Text 75		0 
+Text 72, Text 75		0 
+Text 72, Text 73		1 
+Text 76, Text 77		1 
+Text 72, Text 77		1 
+Text 74, Text 75		1 

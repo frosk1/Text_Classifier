@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 138: 3
+Text 139: 0
+Text 140: 4
+Text 141: 2
+Text 142: 1
+Text 143: 5
+ 
+Textpaare
+ 
+Text 139, Text 141		1 
+Text 142, Text 143		1 
+Text 138, Text 142		0 
+Text 139, Text 142		1 
+Text 138, Text 143		1 
+Text 141, Text 143		1 
+Text 139, Text 140		1 
+Text 138, Text 141		0 
+Text 141, Text 142		0 
+Text 140, Text 142		0 
+Text 139, Text 143		1 
+Text 140, Text 141		0 
+Text 138, Text 140		1 
+Text 140, Text 143		1 
+Text 138, Text 139		0 

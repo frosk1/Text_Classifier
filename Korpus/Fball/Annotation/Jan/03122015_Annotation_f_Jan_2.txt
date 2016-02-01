@@ -1,0 +1,138 @@
+Annotations-Ergebnisse
+ 
+Text 431: 2
+Text 427: 2
+Text 397: 2
+Text 384: 2
+Text 360: 2
+Text 434: 1
+Text 429: 1
+Text 414: 1
+Text 409: 1
+Text 391: 1
+Text 377: 1
+Text 376: 1
+Text 373: 1
+Text 370: 1
+Text 369: 1
+Text 368: 1
+Text 367: 1
+Text 363: 1
+Text 351: 1
+Text 349: 1
+Text 341: 1
+Text 334: 1
+Text 329: 1
+Text 315: 1
+Text 313: 1
+Text 298: 1
+Text 297: 1
+Text 291: 1
+Text 286: 1
+Text 280: 1
+Text 258: 1
+Text 255: 1
+Text 251: 1
+Text 238: 1
+Text 213: 1
+Text 210: 1
+Text 208: 1
+Text 204: 1
+Text 194: 1
+Text 179: 1
+Text 178: 1
+Text 177: 1
+Text 171: 1
+Text 159: 1
+Text 152: 1
+Text 432: 0
+Text 423: 0
+Text 410: 0
+Text 395: 0
+Text 392: 0
+Text 387: 0
+Text 381: 0
+Text 380: 0
+Text 379: 0
+Text 366: 0
+Text 361: 0
+Text 359: 0
+Text 346: 0
+Text 332: 0
+Text 328: 0
+Text 322: 0
+Text 319: 0
+Text 316: 0
+Text 312: 0
+Text 310: 0
+Text 295: 0
+Text 292: 0
+Text 288: 0
+Text 287: 0
+Text 281: 0
+Text 276: 0
+Text 265: 0
+Text 250: 0
+Text 230: 0
+Text 214: 0
+Text 201: 0
+Text 199: 0
+Text 176: 0
+Text 173: 0
+Text 172: 0
+Text 170: 0
+Text 168: 0
+Text 154: 0
+ 
+Textpaare
+ 
+Text 334, Text 377		1 
+Text 152, Text 381		0 
+Text 238, Text 423		0 
+Text 172, Text 286		1 
+Text 199, Text 384		1 
+Text 297, Text 319		0 
+Text 369, Text 410		0 
+Text 366, Text 367		1 
+Text 341, Text 409		1 
+Text 346, Text 429		1 
+Text 287, Text 313		1 
+Text 251, Text 258		1 
+Text 286, Text 368		1 
+Text 281, Text 298		1 
+Text 179, Text 395		0 
+Text 173, Text 370		1 
+Text 170, Text 334		1 
+Text 363, Text 392		0 
+Text 329, Text 379		0 
+Text 177, Text 250		0 
+Text 171, Text 176		0 
+Text 154, Text 373		1 
+Text 361, Text 431		1 
+Text 410, Text 414		1 
+Text 251, Text 359		0 
+Text 170, Text 376		1 
+Text 359, Text 427		1 
+Text 208, Text 230		0 
+Text 213, Text 322		0 
+Text 349, Text 432		0 
+Text 201, Text 397		1 
+Text 210, Text 380		0 
+Text 159, Text 328		0 
+Text 288, Text 341		1 
+Text 316, Text 427		1 
+Text 178, Text 295		0 
+Text 194, Text 332		0 
+Text 265, Text 351		1 
+Text 292, Text 397		1 
+Text 280, Text 328		0 
+Text 349, Text 434		1 
+Text 168, Text 384		1 
+Text 312, Text 360		1 
+Text 310, Text 360		1 
+Text 199, Text 291		1 
+Text 276, Text 391		1 
+Text 315, Text 380		0 
+Text 255, Text 387		0 
+Text 204, Text 349		0 
+Text 214, Text 431		1 

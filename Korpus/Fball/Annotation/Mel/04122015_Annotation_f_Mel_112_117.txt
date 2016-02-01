@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 112: 3
+Text 113: 2
+Text 114: 5
+Text 115: 0
+Text 116: 4
+Text 117: 1
+ 
+Textpaare
+ 
+Text 115, Text 117		1 
+Text 114, Text 115		0 
+Text 113, Text 117		0 
+Text 113, Text 115		0 
+Text 116, Text 117		0 
+Text 112, Text 116		1 
+Text 113, Text 114		1 
+Text 114, Text 116		0 
+Text 115, Text 116		1 
+Text 112, Text 114		1 
+Text 114, Text 117		0 
+Text 112, Text 115		0 
+Text 112, Text 113		0 
+Text 113, Text 116		1 
+Text 112, Text 117		0 

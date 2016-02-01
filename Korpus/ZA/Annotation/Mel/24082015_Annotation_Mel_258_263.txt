@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 258: 2
+Text 259: 4
+Text 260: 5
+Text 261: 3
+Text 262: 1
+Text 263: 0
+ 
+Textpaare
+ 
+Text 258, Text 262		0 
+Text 259, Text 263		0 
+Text 260, Text 262		0 
+Text 260, Text 261		0 
+Text 258, Text 263		0 
+Text 258, Text 261		1 
+Text 261, Text 263		0 
+Text 261, Text 262		0 
+Text 258, Text 259		1 
+Text 258, Text 260		1 
+Text 259, Text 262		0 
+Text 262, Text 263		0 
+Text 260, Text 263		0 
+Text 259, Text 260		1 
+Text 259, Text 261		0 

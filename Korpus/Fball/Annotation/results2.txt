@@ -1,0 +1,33 @@
+                                                   Resultate Annnotation Fball-Testmenge
+                                                   ---------------------
+
+Legende:
+
+M = manuelle Texte
+G = automatisch gute Texte
+S = automatisch schlechte Texte
+# = Anzahl Textpaare
+a = Annotation
+
+Manuelle Testmenge:
+
+	Overall =  #300
+
+	M -- S / S -- M = # 13     --->  13 M ;   0 S  | 0:  6 ;  1:  7
+	M -- G / M -- G = #120     ---> 115 M ;   5 G  | 0: 78 ;  1: 42
+	S -- G / G -- S = # 36     --->  25 G ;  11 S  | 0: 18 ;  1: 18
+
+	S -- S = #3
+	G -- G = #104
+	M -- M = #24
+
+
+	Annotation
+
+	G+S =  a148 ; 49.33 %
+	M   =  a152 ; 50.67 %
+	
+	S   =  a14 ;   4.67 %
+	G   =  a134 ; 44.67 %
+	
+

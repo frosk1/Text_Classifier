@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 100: 0
+Text 101: 2
+Text 102: 4
+Text 103: 1
+Text 104: 4
+Text 105: 4
+ 
+Textpaare
+ 
+Text 101, Text 102		1 
+Text 100, Text 105		1 
+Text 100, Text 102		1 
+Text 102, Text 104		1 
+Text 104, Text 105		1 
+Text 100, Text 103		1 
+Text 101, Text 105		1 
+Text 102, Text 103		0 
+Text 101, Text 103		0 
+Text 101, Text 104		1 
+Text 103, Text 104		1 
+Text 102, Text 105		0 
+Text 100, Text 101		1 
+Text 100, Text 104		1 
+Text 103, Text 105		1 

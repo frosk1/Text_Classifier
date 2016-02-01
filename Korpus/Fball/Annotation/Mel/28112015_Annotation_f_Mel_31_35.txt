@@ -1,0 +1,20 @@
+Annotations-Ergebnisse
+ 
+Text 31: 2
+Text 32: 1
+Text 33: 3
+Text 34: 0
+Text 35: 4
+ 
+Textpaare
+ 
+Text 32, Text 35		1 
+Text 33, Text 34		0 
+Text 31, Text 32		0 
+Text 31, Text 34		0 
+Text 32, Text 33		1 
+Text 33, Text 35		1 
+Text 31, Text 33		1 
+Text 34, Text 35		1 
+Text 31, Text 35		1 
+Text 32, Text 34		0 

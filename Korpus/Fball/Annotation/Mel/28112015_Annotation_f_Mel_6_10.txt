@@ -1,0 +1,20 @@
+Annotations-Ergebnisse
+ 
+Text 6: 1
+Text 7: 2
+Text 8: 3
+Text 9: 0
+Text 10: 4
+ 
+Textpaare
+ 
+Text 6, Text 10		1 
+Text 6, Text 8		1 
+Text 7, Text 9		0 
+Text 6, Text 7		1 
+Text 7, Text 8		1 
+Text 7, Text 10		1 
+Text 9, Text 10		1 
+Text 8, Text 9		0 
+Text 6, Text 9		0 
+Text 8, Text 10		1 

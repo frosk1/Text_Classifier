@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 52: 0
+Text 53: 2
+Text 54: 5
+Text 55: 2
+Text 56: 4
+Text 57: 2
+ 
+Textpaare
+ 
+Text 54, Text 55		0 
+Text 55, Text 56		1 
+Text 54, Text 57		0 
+Text 52, Text 55		1 
+Text 55, Text 57		1 
+Text 52, Text 54		1 
+Text 56, Text 57		0 
+Text 53, Text 57		0 
+Text 52, Text 57		1 
+Text 53, Text 55		1 
+Text 52, Text 56		1 
+Text 53, Text 56		1 
+Text 52, Text 53		1 
+Text 54, Text 56		0 
+Text 53, Text 54		1 

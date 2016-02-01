@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 180: 1
+Text 181: 2
+Text 182: 3
+Text 183: 0
+Text 184: 5
+Text 185: 4
+ 
+Textpaare
+ 
+Text 180, Text 181		1 
+Text 183, Text 185		1 
+Text 180, Text 184		1 
+Text 180, Text 185		1 
+Text 182, Text 184		1 
+Text 181, Text 184		1 
+Text 183, Text 184		1 
+Text 184, Text 185		0 
+Text 181, Text 183		0 
+Text 182, Text 185		1 
+Text 181, Text 185		1 
+Text 182, Text 183		0 
+Text 180, Text 182		1 
+Text 180, Text 183		0 
+Text 181, Text 182		1 

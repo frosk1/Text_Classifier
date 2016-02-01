@@ -1,0 +1,26 @@
+Annotations-Ergebnisse
+ 
+Text 186: 4
+Text 187: 0
+Text 188: 4
+Text 189: 4
+Text 190: 2
+Text 191: 1
+ 
+Textpaare
+ 
+Text 188, Text 190		0 
+Text 188, Text 189		1 
+Text 190, Text 191		0 
+Text 187, Text 190		1 
+Text 186, Text 190		0 
+Text 186, Text 191		0 
+Text 189, Text 190		0 
+Text 187, Text 191		1 
+Text 186, Text 189		0 
+Text 187, Text 189		1 
+Text 189, Text 191		0 
+Text 186, Text 188		1 
+Text 187, Text 188		1 
+Text 186, Text 187		0 
+Text 188, Text 191		0 
