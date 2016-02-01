@@ -35,7 +35,7 @@ Dependency-Parser from Sennrich et al.(2009) : https://files.ifi.uzh.ch/CL/volk/
 
 
 
--  ParZu - Dpendency Parser : https://github.com/rsennrich/parzu
+-  ParZu - Dependency Parser : https://github.com/rsennrich/parzu
 -  Treetagger ; Helmut Schmid http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
 -  treetaggerwrapper for python ; http://treetaggerwrapper.readthedocs.org/en/latest/
 
