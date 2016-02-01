@@ -3,6 +3,9 @@
 Test Case Modul
 
 Definition of all test cases for the text-classificaion-system.
+
+
+!!! This modul is obsolete, need to adjust for new text-classifier system !!!
 """
 
 from text_classifier.body.korpus import Korpus
@@ -26,7 +29,7 @@ class TestBodyModel(unittest.TestCase):
         self.anno_file = res.anno_file
         self.test_korpus = Korpus("Test")
         self.test_korpus.insert_from_file(self.korpus_file)
-        self.test_data = Data(self.test_korpus)
+        self.test_data = Data("test_data", self.test_korpus)
         self.test_data.add_anno(self.anno_file)
         self.test_data.attach_feature_list(res.feature_list)
 
@@ -42,7 +45,7 @@ class TestBodyText(unittest.TestCase):
         self.anno_file = res.anno_file
         self.test_korpus = Korpus("Test")
         self.test_korpus.insert_from_file(self.korpus_file)
-        self.test_data = Data(self.test_korpus)
+        self.test_data = Data("test_data", self.test_korpus)
         self.test_data.add_anno(self.anno_file)
         self.test_data.attach_feature("bag_of_words")
 
@@ -53,7 +56,7 @@ class TestBodyTextpair(unittest.TestCase):
         self.anno_file = res.anno_file
         self.test_korpus = Korpus("Test")
         self.test_korpus.insert_from_file(self.korpus_file)
-        self.test_data = Data(self.test_korpus)
+        self.test_data = Data("test_data", self.test_korpus)
         self.test_data.add_anno(self.anno_file)
         self.test_data.attach_feature("tf_idf")
 
@@ -72,10 +75,8 @@ class TestBodyAttribute(unittest.TestCase):
         self.anno_file = res.anno_file
         self.test_korpus = Korpus("Test")
         self.test_korpus.insert_from_file(self.korpus_file)
-        self.test_data = Data(self.test_korpus)
+        self.test_data = Data("test_data", self.test_korpus)
         self.test_data.add_anno(self.anno_file)
-
-
 
 ##################################################################################################################
 ##################################################################################################################
@@ -119,8 +120,8 @@ class TextTest(TestBodyText):
         """ Test routine vectorize() in textpair """
         for mock_obj in self.mock_obj_set:
             mock_obj.vectorize()
-            self.assertListEqual(mock_obj.feature_vector, self.term_freq[mock_obj.id])
 
+            self.assertListEqual(mock_obj.feature_vector,self.term_freq[mock_obj.id])
 
 class TextPairTest(TestBodyTextpair):
     @classmethod
@@ -218,7 +219,7 @@ class DataTest(TestBodyData):
     def setUp(self):
         test_name = self.shortDescription()
         super(DataTest, self).setUp()
-        self.mock_obj = Data(self.test_korpus)
+        self.mock_obj = Data("test_data", self.test_korpus)
         self.mock_obj.add_anno(self.anno_file)
 
         if test_name == "Test routine add_anno() in Data":
