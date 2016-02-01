@@ -41,7 +41,7 @@ Dependency-Parser from Sennrich et al.(2009) : https://files.ifi.uzh.ch/CL/volk/
 
 Use System
 ============
-First change the needed file paths in main.py and ressource_path.py. After that your whole system is build in main()
+First change the needed file paths in main.py and resource_path.py. After that your whole system is build in main()
 of the main.py.
 
 Use the classification system in the main method.
