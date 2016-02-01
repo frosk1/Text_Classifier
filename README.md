@@ -44,50 +44,10 @@ Use System
 First change the needed file paths in main.py and ressource_path.py. After that your whole system is build in main()
 of the main.py.
 
-    # Set Korpus
-    k1 = Korpus("Test")
-    k1.insert_from_file(res.Fball)
+Use the classification system in the main method.
 
-    # Set Data
-    data1 = Data("train", k1)
-    data1.add_anno(res.fball_sampling_anno_man1_10k)
-
-    data2 = Data("test", k1)
-    data2.add_anno(res.testmenge_Fball)
-
-    datas = [data1, data2]
-
-    # Attach Features
-
-    # data1.attach_feature("bag_of_pos")
-    # data1.attach_feature("bag_of_words")
-    # data1.attach_feature("tf_idf")
-    data1.attach_feature("readability")
-    # data1.attach_feature("variety")
-    # data1.attach_feature("adjective")
-    # data1.attach_feature("sentence_start")
-    # data1.attach_feature("modal_verb")
-    # data1.attach_feature("perfect_tense")
-    # data1.attach_feature("passive")
-
-
-    # Shell output for detailed information of set data
-
-    # training data
-    print "+++++++++++ summarize " + data1.name + " data+++++++++++"+"\n"
-    summarize_textpair(data1.real_data.values())
-    # test data
-    print "+++++++++++ summarize " + data2.name + " data+++++++++++" +"\n"
-    summarize_textpair(data2.real_data.values())
-
-    # Set Model
-    model1 = Model(data_list=datas)
-    # Set classifier
-    model1.set_classifier("svm_linear")
-    # Set train data
-    model1.set_train_data(data1.name)
-    # Set test data
-    model1.set_test_data(data2.name)
-
-    # Print Evaluation Report
-    model1.evaluate_classification_report(100)
+-  Set Korpus
+-  Set Data
+-  Attach Features
+-  Set Model
+-  Start Classification with Report
